@@ -33,7 +33,7 @@ public class PathLossModel {
         }                                
     }
 
-    class PathLossModelCache {
+    public class PathLossModelCache {
         public int dim_x;
         public int dim_y;
         public float cache[][];

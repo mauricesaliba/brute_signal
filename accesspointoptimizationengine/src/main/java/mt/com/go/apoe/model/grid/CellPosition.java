@@ -1,4 +1,4 @@
-package mt.com.go.apoe.model;
+package mt.com.go.apoe.model.grid;
 
 public class CellPosition {
 
@@ -7,6 +7,14 @@ public class CellPosition {
 
     public CellPosition(int row, int column) {
         this.row = row;
+        this.column = column;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setColumn(int column) {
         this.column = column;
     }
 
