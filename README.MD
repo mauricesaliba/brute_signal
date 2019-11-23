@@ -53,3 +53,8 @@ AccessPoint:
 
 GridCell:
 	vacant: boolean
+	
+	
+------------------------------
+
+Codebase now includes Android App scanning SSIDs and showing as list ordered by strongest first.

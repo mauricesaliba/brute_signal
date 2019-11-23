@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WiFi Scanner</string>
+    <string name="scan_wifi_button">Scan WiFi</string>
+</resources>
