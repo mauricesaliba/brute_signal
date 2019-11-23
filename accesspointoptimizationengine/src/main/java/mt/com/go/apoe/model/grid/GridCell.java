@@ -18,4 +18,11 @@ public class GridCell {
         return usable;
     }
 
+    public void setToUsable() {
+        usable = true;
+    }
+
+    public void setToUnUsable() {
+        usable = false;
+    }
 }

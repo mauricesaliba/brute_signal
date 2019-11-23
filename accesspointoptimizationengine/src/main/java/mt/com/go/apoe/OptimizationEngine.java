@@ -2,9 +2,9 @@ package mt.com.go.apoe;
 
 import mt.com.go.apoe.engineering.PathLossModel;
 import mt.com.go.apoe.model.*;
-import mt.com.go.apoe.model.grid.GridCell;
 import mt.com.go.apoe.model.grid.GridPoint;
 import mt.com.go.apoe.model.grid.Grid;
+import mt.com.go.apoe.model.grid.Gridster;
 import mt.com.go.apoe.model.plan.Wall;
 import mt.com.go.apoe.model.recommendation.EmptyRecommendation;
 import mt.com.go.apoe.model.recommendation.Recommendation;
@@ -19,11 +19,11 @@ public class OptimizationEngine {
     private static final int MAX_ACCESS_POINTS = 5;
     private static final float AVERAGE_DECIBEL_THRESHOLD = 50;
 
-    public Recommendation getOptimalSolution(List<Wall> walls) {
-        convertToGridCoor(walls);
+    public Recommendation getOptimalSolution(List<Wall> uiWalls) {
+        List<Wall> gridWalls = convertToGridWalls(uiWalls);
 
         PathLossModel.PathLossModelCache pathLossHeatMap = PathLossModel.generateCache(walls);
-        Grid usabilityGrid = generateUsabilityGrid(walls);
+        Grid usabilityGrid = new Gridster().generateUsabilityGrid(gridWalls.toArray(new Wall[0]));
 
         int accessPointCount = 0;
 
@@ -99,7 +99,7 @@ public class OptimizationEngine {
         return sum / signalStrengthHeatMap.length + signalStrengthHeatMap[0].length;
     }
 
-    private AccessPoint getBestAccessPointToMove(float[][] signalStrengthMap, GridCell gridCell, AccessPoint[] accessPoints) {
+    private AccessPoint getBestAccessPointToMove(float[][] signalStrengthMap, GridPoint gridPoint, AccessPoint[] accessPoints) {
         if(accessPoints.length == 0) {
             return null;
         }
@@ -111,12 +111,12 @@ public class OptimizationEngine {
             List<GridPoint> gridPoints = Grid.findLine(
                     accessPoint.getGridPoint().getColumn(),
                     accessPoint.getGridPoint().getRow(),
-                    gridCell.getGridPoint().getColumn(),
-                    gridCell.getGridPoint().getRow());
+                    gridPoint.getColumn(),
+                    gridPoint.getRow());
 
             float currentSum = 0;
-            for (GridPoint gridPoint : gridPoints) {
-                currentSum += signalStrengthMap[gridPoint.getColumn()][gridPoint.getRow()];
+            for (GridPoint gp : gridPoints) {
+                currentSum += signalStrengthMap[gp.getColumn()][gp.getRow()];
             }
 
             if(currentSum < lowestSum) {
@@ -127,5 +127,7 @@ public class OptimizationEngine {
 
         return bestAccessPoint;
     }
+
+
 
 }

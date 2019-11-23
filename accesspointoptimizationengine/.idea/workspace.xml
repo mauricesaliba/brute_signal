@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="134fce2a-bab1-4fc1-88be-380e3b2feb07" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Gridster.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/OutsideInside.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/GridCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/GridCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/GridWall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/GridWall.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +45,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/mt/com/go/apoe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -52,6 +55,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\massimo.saliba\Desktop\brute_signal\accesspointoptimizationengine\src\main\java\mt\com\go\apoe\model\plan" />
+      <recent name="C:\Users\massimo.saliba\Desktop\brute_signal\accesspointoptimizationengine\src\main\java\mt\com\go\apoe\model\grid" />
       <recent name="C:\Users\massimo.saliba\Desktop\brute_signal\accesspointoptimizationengine\src\main\java\mt\com\go\apoe" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -142,7 +147,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574490070372</updated>
       <workItem from="1574490073865" duration="5357000" />
-      <workItem from="1574511957776" duration="18504000" />
+      <workItem from="1574511957776" duration="19965000" />
     </task>
     <servers />
   </component>
