@@ -80,8 +80,8 @@ public class Gridster {
             if (y2 > max_y){ max_y = y2; }
         }
 
-        int dim_x = (int) Math.ceil((max_x+min_x)/_resolution);
-        int dim_y = (int) Math.ceil((max_y+min_y)/_resolution);
+        int dim_x = (int) Math.ceil((max_x+min_x));
+        int dim_y = (int) Math.ceil((max_y+min_y));
 
         return new GridPoint(dim_x, dim_y);
     }
