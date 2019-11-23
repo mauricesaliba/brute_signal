@@ -70,7 +70,7 @@ public class PathLossModel {
         _resolution = resolution;
     }
 
-    public PathLossModelCache GenerateCache(WallObject walls[]){
+    public static PathLossModelCache generateCache(WallObject walls[]){
 
         float min_x = +Inf; 
         float min_y = +Inf;

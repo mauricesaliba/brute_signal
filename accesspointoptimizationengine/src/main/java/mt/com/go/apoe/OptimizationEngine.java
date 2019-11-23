@@ -1,5 +1,6 @@
 package mt.com.go.apoe;
 
+import mt.com.go.apoe.engineering.PathLossModel;
 import mt.com.go.apoe.model.*;
 import mt.com.go.apoe.model.plan.Wall;
 import mt.com.go.apoe.model.recommendation.EmptyRecommendation;
@@ -14,7 +15,7 @@ public class OptimizationEngine {
     private static final float AVERAGE_DECIBEL_THRESHOLD = 50;
 
     public Recommendation getOptimalSolution(List<Wall> walls) {
-        float[][] pathLossHeatMap = getPathLossHeatMap(walls);
+        float[][] pathLossHeatMap = PathLossModel.generateCache(walls);
         GridCell[][] vacancyGrid = generateVacanyGrid(walls);
 
         int accessPointCount = 0;
