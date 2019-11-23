@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="134fce2a-bab1-4fc1-88be-380e3b2feb07" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/CellPosition.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/recommendation/EmptyRecommendation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/recommendation/Recommendation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/Material.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/Material.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/Wall.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,11 +45,14 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/mt/com/go/apoe" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\massimo.saliba\Desktop\brute_signal\accesspointoptimizationengine\src\main\java\mt\com\go\apoe" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="mt.com.go.apoe.model.recommendation" />
     </key>
@@ -82,7 +85,7 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="mt.com.go.apoe.model.*" />
+          <option name="PATTERN" value="mt.com.go.apoe.model.plan.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -138,7 +141,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574490070372</updated>
       <workItem from="1574490073865" duration="5357000" />
-      <workItem from="1574511957776" duration="3347000" />
+      <workItem from="1574511957776" duration="5074000" />
     </task>
     <servers />
   </component>

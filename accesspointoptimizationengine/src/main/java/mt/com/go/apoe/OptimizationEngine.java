@@ -1,6 +1,7 @@
 package mt.com.go.apoe;
 
 import mt.com.go.apoe.model.*;
+import mt.com.go.apoe.model.plan.Wall;
 import mt.com.go.apoe.model.recommendation.EmptyRecommendation;
 import mt.com.go.apoe.model.recommendation.Recommendation;
 

@@ -1,4 +1,4 @@
-package mt.com.go.apoe.model;
+package mt.com.go.apoe.model.plan;
 
 public class Wall {
 
