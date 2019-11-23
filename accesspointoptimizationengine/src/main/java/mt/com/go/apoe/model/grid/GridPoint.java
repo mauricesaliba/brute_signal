@@ -10,12 +10,14 @@ public class GridPoint {
         this.column = column;
     }
 
-    public void setRow(int row) {
+    public GridPoint setRow(int row) {
         this.row = row;
+        return this;
     }
 
-    public void setColumn(int column) {
+    public GridPoint setColumn(int column) {
         this.column = column;
+        return this;
     }
 
     public int getRow() {

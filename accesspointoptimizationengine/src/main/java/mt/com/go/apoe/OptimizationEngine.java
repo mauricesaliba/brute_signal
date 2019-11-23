@@ -33,10 +33,10 @@ public class OptimizationEngine {
             while(step < MAX_STEPS) {
                 float[][] signalStrengthHeatMap = getSignalStrengthHeatMap(pathLossHeatMap, accessPoints);
 
-                GridPoint gridPoint = getMostAttractiveGridCell(signalStrengthHeatMap);
+                GridPoint gridPoint = getMostAttractiveGridPoint(signalStrengthHeatMap);
                 AccessPoint accessPoint = getBestAccessPointToMove(signalStrengthHeatMap, gridPoint, accessPoints);
 
-                accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, usabilityGridcellPosition);
+                accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, gridPoint);
 
                 if(getAreaCoverage(signalStrengthHeatMap) >= AVERAGE_DECIBEL_THRESHOLD) {
                     return new Recommendation(accessPoints, signalStrengthHeatMap);
@@ -49,7 +49,23 @@ public class OptimizationEngine {
         return new EmptyRecommendation();
     }
 
-    float getAreaCoverage(float[][] signalStrengthHeatMap) {
+    private GridPoint getMostAttractiveGridPoint(float[][] signalStrengthHeatMap) {
+        float lowestDecibel = Float.MAX_VALUE;
+        GridPoint gridPoint = new GridPoint(0,0);
+
+        for (int i = 0; i < signalStrengthHeatMap.length; i++) {
+            for(int j = 0; j < signalStrengthHeatMap[0].length; j++) {
+                float decibel = signalStrengthHeatMap[i][j];
+                if (decibel < lowestDecibel) {
+                    gridPoint = gridPoint.setRow(i).setColumn(j);
+                }
+            }
+        }
+
+        return gridPoint;
+    }
+
+    private float getAreaCoverage(float[][] signalStrengthHeatMap) {
         float sum = 0;
 
         for(int i = 0; i < signalStrengthHeatMap.length; i++) {
