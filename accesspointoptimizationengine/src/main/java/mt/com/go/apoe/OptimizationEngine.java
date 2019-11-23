@@ -16,14 +16,14 @@ public class OptimizationEngine {
 
     public Recommendation getOptimalSolution(List<Wall> walls) {
         float[][] pathLossHeatMap = PathLossModel.generateCache(walls);
-        GridCell[][] vacancyGrid = generateVacanyGrid(walls);
+        GridCell[][] usabilityGrid = generateUsabilityGrid(walls);
 
         int accessPointCount = 0;
 
         do {
             accessPointCount++;
 
-            AccessPoint[] accessPoints = randomlyPlaceAccessPoints(vacancyGrid, accessPointCount);
+            AccessPoint[] accessPoints = randomlyPlaceAccessPoints(usabilityGrid, accessPointCount);
             int step = 0;
 
             while(step < MAX_STEPS) {
