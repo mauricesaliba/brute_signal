@@ -98,7 +98,7 @@ public class PathLossModel {
     }
 
     public PathLossModel.PathLossModelCache generateCache(Wall walls[]) {
-        GridPoint gridPoint = new Gridster().getGridDimensions(walls);
+        GridPoint gridPoint = new Gridster(gridCellSize).getGridDimensions(walls);
 
         PathLossModel.PathLossModelCache cache = new PathLossModel.PathLossModelCache(gridPoint.getColumn(), gridPoint.getRow());
 

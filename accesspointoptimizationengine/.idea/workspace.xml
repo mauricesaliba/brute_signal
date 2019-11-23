@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="134fce2a-bab1-4fc1-88be-380e3b2feb07" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/recommendation/Recommendation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/recommendation/Recommendation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Gridster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Gridster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/OptimizationEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/OptimizationEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/engineering/PathLossModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/engineering/PathLossModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Gridster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Gridster.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/plan/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/plan/Point.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +57,7 @@
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31839082" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="Debugger_Data_Views_Java" />
   </component>
   <component name="RecentsManager">
@@ -163,5 +170,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

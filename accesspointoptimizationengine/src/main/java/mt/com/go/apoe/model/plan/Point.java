@@ -2,6 +2,7 @@ package mt.com.go.apoe.model.plan;
 
 public class Point {
 
+    //These are in meters
     private float x;
     private float y;
 

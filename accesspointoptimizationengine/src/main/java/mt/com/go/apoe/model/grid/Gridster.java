@@ -1,12 +1,17 @@
 package mt.com.go.apoe.model.grid;
 
-import mt.com.go.apoe.model.grid.GridCell;
-import mt.com.go.apoe.model.grid.GridPoint;
 import mt.com.go.apoe.model.plan.GridWall;
 import mt.com.go.apoe.model.plan.Point;
+import mt.com.go.apoe.model.plan.UiWall;
 import mt.com.go.apoe.model.plan.Wall;
 
 public class Gridster {
+
+    private final int _resolution;
+
+    public Gridster(int resolution) {
+        _resolution = resolution;
+    }
 
     public Grid generateUsabilityGrid(Wall[] walls) {
         GridPoint dimensions = getGridDimensions(walls);
@@ -49,25 +54,20 @@ public class Gridster {
         }
     }
 
-
     public GridPoint getGridDimensions(Wall walls[]){
-        int _resolution = 1;
-
         float min_x = Float.MAX_VALUE;
         float min_y = Float.MAX_VALUE;
         float max_x = Float.MIN_VALUE;
         float max_y = Float.MIN_VALUE;
 
         for (Wall wall : walls) {
-
             GridWall gridWall = (GridWall) wall;
 
-            float x1 = gridWall.getGridPointStart().getRow();
-            float y1 = gridWall.getGridPointStart().getColumn();
+            float x1 = gridWall.getGridPointStart().getColumn();
+            float y1 = gridWall.getGridPointStart().getRow();
 
-            float x2 = gridWall.getGridPointEnd().getRow();
-            float y2 = gridWall.getGridPointEnd().getColumn();
-
+            float x2 = gridWall.getGridPointEnd().getColumn();
+            float y2 = gridWall.getGridPointEnd().getRow();
 
             if (x1 < min_x){ min_x = x1; }
             if (y1 < min_y){ min_y = y1; }
@@ -83,9 +83,7 @@ public class Gridster {
         int dim_x = (int) Math.ceil((max_x+min_x)/_resolution);
         int dim_y = (int) Math.ceil((max_y+min_y)/_resolution);
 
-        GridPoint gridPoint = new GridPoint(dim_x, dim_y);
-
-        return gridPoint;
+        return new GridPoint(dim_x, dim_y);
     }
 
 }
