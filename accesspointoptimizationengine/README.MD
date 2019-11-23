@@ -1,5 +1,5 @@
 pathlossHeatMap <- getPathlossHeatMap(Wall[] walls): float[][]
-vacancyGrid <- generateVacanyGrid(Wall[] walls): GridCell[][]
+vacancyGrid <- generateVacanyGrid(): GridCell[][]
 
 accessPointCount <- 0
 MAX_STEPS = 10
@@ -18,10 +18,10 @@ do
 	while(step < MAX_STEPS) 
 		signalStrengthHeatmap <- getSignalStrengthHeatmap(pathlossHeatMap, accessPoints): float[][]
 
-		CellPosition cellPosition <- getMostAttractiveGridCell(signalStrengthMap)
-		accessPoint <- getBestAccessPointToMove(signalStrengthMap, cellPosition, accessPoints)
+		GridCell cell <- getMostAttractiveGridCell(signalStrengthMap)
+		accessPoint <- getBestAccessPointToMove(signalStrengthMap, cell, accessPoints)
 		
-		moveAccessPoint(accessPoint, cellPosition)
+		moveAccessPoint(accessPoint, cell)
 
 		if(getAreaCoverage(signalStrengthHeatmap) >= AVERAGE_DECIBELS_THRESHOLD)
 			areaCoverageAchieved = true
