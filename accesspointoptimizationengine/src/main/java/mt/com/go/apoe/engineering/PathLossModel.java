@@ -72,10 +72,10 @@ public class PathLossModel {
 
     public static PathLossModelCache generateCache(WallObject walls[]){
 
-        float min_x = +Inf; 
-        float min_y = +Inf;
-        float max_x = -Inf;
-        float max_y = -Inf;
+        float min_x = Float.MAX_VALUE;
+        float min_y = Float.MAX_VALUE;
+        float max_x = Float.MIN_VALUE;
+        float max_y = Float.MIN_VALUE;
 
         for (WallObject wallObject : walls) {
             if (wallObject.x1 < min_x){ min_x = wallObject.x1; }

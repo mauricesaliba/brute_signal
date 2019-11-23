@@ -2,8 +2,8 @@ package mt.com.go.apoe;
 
 import mt.com.go.apoe.engineering.PathLossModel;
 import mt.com.go.apoe.model.*;
-import mt.com.go.apoe.model.grid.CellPosition;
-import mt.com.go.apoe.model.grid.GridCell;
+import mt.com.go.apoe.model.grid.GridPoint;
+import mt.com.go.apoe.model.grid.Grid;
 import mt.com.go.apoe.model.plan.Wall;
 import mt.com.go.apoe.model.recommendation.EmptyRecommendation;
 import mt.com.go.apoe.model.recommendation.Recommendation;
@@ -17,8 +17,10 @@ public class OptimizationEngine {
     private static final float AVERAGE_DECIBEL_THRESHOLD = 50;
 
     public Recommendation getOptimalSolution(List<Wall> walls) {
+        convertToGridCoor(walls);
+
         PathLossModel.PathLossModelCache pathLossHeatMap = PathLossModel.generateCache(walls);
-        GridCell[][] usabilityGrid = generateUsabilityGrid(walls);
+        Grid usabilityGrid = generateUsabilityGrid(walls);
 
         int accessPointCount = 0;
 
@@ -31,10 +33,10 @@ public class OptimizationEngine {
             while(step < MAX_STEPS) {
                 float[][] signalStrengthHeatMap = getSignalStrengthHeatMap(pathLossHeatMap, accessPoints);
 
-                CellPosition cellPosition = getMostAttractiveGridCell(signalStrengthHeatMap);
-                AccessPoint accessPoint = getBestAccessPointToMove(signalStrengthHeatMap, cellPosition, accessPoints);
+                GridPoint gridPoint = getMostAttractiveGridCell(signalStrengthHeatMap);
+                AccessPoint accessPoint = getBestAccessPointToMove(signalStrengthHeatMap, gridPoint, accessPoints);
 
-                accessPoint.moveTowards(cellPosition);
+                accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, usabilityGridcellPosition);
 
                 if(getAreaCoverage(signalStrengthHeatMap) >= AVERAGE_DECIBEL_THRESHOLD) {
                     return new Recommendation(accessPoints, signalStrengthHeatMap);

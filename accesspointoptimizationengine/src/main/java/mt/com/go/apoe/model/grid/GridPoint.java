@@ -1,11 +1,11 @@
 package mt.com.go.apoe.model.grid;
 
-public class CellPosition {
+public class GridPoint {
 
     private int row;
     private int column;
 
-    public CellPosition(int row, int column) {
+    public GridPoint(int row, int column) {
         this.row = row;
         this.column = column;
     }
