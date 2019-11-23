@@ -2,13 +2,16 @@ package mt.com.go.apoe;
 
 import mt.com.go.apoe.engineering.PathLossModel;
 import mt.com.go.apoe.model.*;
+import mt.com.go.apoe.model.grid.GridCell;
 import mt.com.go.apoe.model.grid.GridPoint;
 import mt.com.go.apoe.model.grid.Grid;
 import mt.com.go.apoe.model.plan.Wall;
 import mt.com.go.apoe.model.recommendation.EmptyRecommendation;
 import mt.com.go.apoe.model.recommendation.Recommendation;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class OptimizationEngine {
 
@@ -47,6 +50,25 @@ public class OptimizationEngine {
         } while (accessPointCount < MAX_ACCESS_POINTS);
 
         return new EmptyRecommendation();
+    }
+
+    private AccessPoint[] randomlyPlaceAccessPoints(Grid usabilityGrid, int accessPointCount) {
+        List<AccessPoint> accessPoints = new ArrayList<>();
+        Random random = new Random();
+
+        for (int i = 0; i < accessPointCount; i++) {
+            while(true){ //Pray to God
+                int x = random.nextInt(usabilityGrid.getRows() + 1);
+                int y = random.nextInt(usabilityGrid.getColumns() + 1);
+
+                if (usabilityGrid.getGridCells()[x][y].isUsable()){
+                    accessPoints.add(new AccessPoint(new GridPoint(x, y)));
+                    break;
+                }
+            }
+        }
+
+        return accessPoints.toArray(new AccessPoint[0]);
     }
 
     private GridPoint getMostAttractiveGridPoint(float[][] signalStrengthHeatMap) {

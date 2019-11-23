@@ -2,22 +2,22 @@ package mt.com.go.apoe.model.grid;
 
 public class Grid {
 
-    private Cell[][] cells;
+    private GridCell[][] gridCells;
 
-    public Grid(Cell[][] cells) {
-        this.cells = cells;
+    public Grid(GridCell[][] gridCells) {
+        this.gridCells = gridCells;
     }
 
-    public Cell[][] getCells() {
-        return cells;
+    public GridCell[][] getGridCells() {
+        return gridCells;
     }
 
     public int getRows() {
-        return cells.length;
+        return gridCells.length;
     }
 
     public int getColumns() {
-        return getRows() == 0 ? 0 : cells[0].length;
+        return getRows() == 0 ? 0 : gridCells[0].length;
     }
 
 }
