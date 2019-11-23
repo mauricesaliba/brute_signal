@@ -25,4 +25,11 @@ public class GridCell {
     public void setToUnUsable() {
         usable = false;
     }
+
+    @Override
+    public String toString() {
+        return "GridCell{" +
+                "gridPoint=" + gridPoint +
+                '}';
+    }
 }

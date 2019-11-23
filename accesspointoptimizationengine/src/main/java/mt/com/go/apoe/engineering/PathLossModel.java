@@ -107,10 +107,10 @@ public class PathLossModel {
             GridWall gridWall = (GridWall) wall;
             findLine(
                     cache,
-                    gridWall.getGridPointStart().getColumn() / gridCellSize,
-                    gridWall.getGridPointStart().getRow() / gridCellSize,
-                    gridWall.getGridPointEnd().getColumn() / gridCellSize,
-                    gridWall.getGridPointEnd().getRow() / gridCellSize,
+                    gridWall.getGridPointStart().getColumn(),
+                    gridWall.getGridPointStart().getRow(),
+                    gridWall.getGridPointEnd().getColumn(),
+                    gridWall.getGridPointEnd().getRow(),
                     10.0f);
         }
 
@@ -150,7 +150,7 @@ public class PathLossModel {
                         }
                         continue;
                     }
-                    double distance = Math.sqrt((Math.pow((AP.getGridPoint().getColumn()-i), 2))+(Math.pow(AP.getGridPoint().getRow()-j, 2)))*gridCellSize;
+                    double distance = Math.sqrt((Math.pow((AP.getGridPoint().getColumn()-i), 2))+(Math.pow(AP.getGridPoint().getRow()-j, 2)));
                     double totalLoss = findLoss(cache, (int) (AP.getGridPoint().getColumn()), (int) (AP.getGridPoint().getRow()), (i), (j));
                     double recievedPower = Math.round(CalculateRxPower(distance, totalLoss, AP.getTransmitPower(), true, AP.getAntennaGain()));
                     if (accumulativeHeatMap) {

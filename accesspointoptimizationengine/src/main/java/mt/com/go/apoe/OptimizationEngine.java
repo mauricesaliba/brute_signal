@@ -18,9 +18,9 @@ import java.util.stream.Stream;
 
 public class OptimizationEngine {
 
-    private static final int MAX_STEPS = 10;
+    private static final int MAX_STEPS = 50;
     private static final int MAX_ACCESS_POINTS = 5;
-    private static final float AVERAGE_DECIBEL_THRESHOLD = 50;
+    private static final float AVERAGE_DECIBEL_THRESHOLD = -50;
     private static final int GRID_CELL_SIZE = 20; //This is in cm
 
     public Recommendation getOptimalSolution(Wall[] uiWalls) {
@@ -29,6 +29,13 @@ public class OptimizationEngine {
         PathLossModel pathLossModel = new PathLossModel(GRID_CELL_SIZE);
         PathLossModel.PathLossModelCache pathLossHeatMap = pathLossModel.generateCache(gridWalls);
         Grid usabilityGrid = new Gridster(GRID_CELL_SIZE).generateUsabilityGrid(gridWalls);
+
+        for(int i = 0; i < pathLossHeatMap.cache.length; i++) {
+            for (int j = 0; j < pathLossHeatMap.cache[0].length; j++) {
+                System.out.print(pathLossHeatMap.cache[i][j] + ", ");
+            }
+            System.out.println();
+        }
 
         int accessPointCount = 0;
 
@@ -41,7 +48,7 @@ public class OptimizationEngine {
             while(step < MAX_STEPS) {
                 double[][] signalStrengthHeatMap = pathLossModel.generateHeatMap(pathLossHeatMap, accessPoints, true);
 
-                GridPoint gridPoint = getMostAttractiveGridPoint(signalStrengthHeatMap);
+                GridPoint gridPoint = getMostAttractiveGridPoint(usabilityGrid, signalStrengthHeatMap);
                 AccessPoint accessPoint = getBestAccessPointToMove(signalStrengthHeatMap, gridPoint, accessPoints);
 
                 accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, gridPoint);
@@ -55,7 +62,7 @@ public class OptimizationEngine {
                     System.out.println();
                 }
 
-                if(getAreaCoverage(signalStrengthHeatMap) >= AVERAGE_DECIBEL_THRESHOLD) {
+                if(getAreaCoverage(usabilityGrid, signalStrengthHeatMap) / accessPointCount >= AVERAGE_DECIBEL_THRESHOLD) {
                     System.out.println("Found a solution!!!");
                     return new Recommendation(accessPoints, signalStrengthHeatMap);
                 }
@@ -116,14 +123,13 @@ public class OptimizationEngine {
         return accessPoints.toArray(new AccessPoint[0]);
     }
 
-    private GridPoint getMostAttractiveGridPoint(double[][] signalStrengthHeatMap) {
+    private GridPoint getMostAttractiveGridPoint(Grid usabilityGrid, double[][] signalStrengthHeatMap) {
         double lowestDecibel = Double.MAX_VALUE;
         GridPoint gridPoint = new GridPoint(0,0);
 
         for (int i = 0; i < signalStrengthHeatMap.length; i++) {
             for(int j = 0; j < signalStrengthHeatMap[0].length; j++) {
-                double decibel = signalStrengthHeatMap[i][j];
-                if (decibel < lowestDecibel) {
+                if (usabilityGrid.getGridCells()[i][j].isUsable() && signalStrengthHeatMap[i][j] < lowestDecibel) {
                     gridPoint = gridPoint.setRow(i).setColumn(j);
                 }
             }
@@ -132,16 +138,22 @@ public class OptimizationEngine {
         return gridPoint;
     }
 
-    private double getAreaCoverage(double[][] signalStrengthHeatMap) {
+    private double getAreaCoverage(Grid usabilityGrid, double[][] signalStrengthHeatMap) {
         float sum = 0;
+        int usableGridCells = 0;
 
         for(int i = 0; i < signalStrengthHeatMap.length; i++) {
             for(int j = 0; j < signalStrengthHeatMap[0].length; j++){
-                sum += signalStrengthHeatMap[i][j];
+                if(usabilityGrid.getGridCells()[i][j].isUsable()) {
+                    sum += signalStrengthHeatMap[i][j];
+                    usableGridCells++;
+                }
             }
         }
 
-        return sum / signalStrengthHeatMap.length + signalStrengthHeatMap[0].length;
+        float average = sum / usableGridCells;
+
+        return average;
     }
 
     private AccessPoint getBestAccessPointToMove(double[][] signalStrengthMap, GridPoint gridPoint, AccessPoint[] accessPoints) {

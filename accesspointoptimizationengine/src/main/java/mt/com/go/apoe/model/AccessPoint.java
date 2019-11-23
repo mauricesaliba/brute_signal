@@ -38,13 +38,13 @@ public class AccessPoint implements Movement {
         float radians = (float) Math.atan2(deltaY, deltaX);
 
         if(radians >= TOP_LEFT_RADIANS && radians <= TOP_RIGHT_RADIANS) {
-            moveUp(gridPoint);
+            moveUp(this.gridPoint);
         } else if(radians >= TOP_RIGHT_RADIANS && radians <= BOTTOM_RIGHT_RADIANS) {
-            moveRight(columnCount, gridPoint);
+            moveRight(columnCount, this.gridPoint);
         } else if(radians >= BOTTOM_RIGHT_RADIANS && radians <= BOTTOM_LEFT_RADIANS) {
-            moveDown(rowCount, gridPoint);
+            moveDown(rowCount, this.gridPoint);
         } else {
-            moveLeft(gridPoint);
+            moveLeft(this.gridPoint);
         }
     }
 
