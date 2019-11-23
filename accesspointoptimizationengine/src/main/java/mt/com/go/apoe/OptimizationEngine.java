@@ -130,7 +130,8 @@ public class OptimizationEngine {
         for (int i = 0; i < signalStrengthHeatMap.length; i++) {
             for(int j = 0; j < signalStrengthHeatMap[0].length; j++) {
                 if (usabilityGrid.getGridCells()[i][j].isUsable() && signalStrengthHeatMap[i][j] < lowestDecibel) {
-                    gridPoint = gridPoint.setRow(i).setColumn(j);
+                    gridPoint.setRow(i).setColumn(j);
+                    lowestDecibel = signalStrengthHeatMap[i][j];
                 }
             }
         }

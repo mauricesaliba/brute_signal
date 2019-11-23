@@ -4,15 +4,7 @@
     <list default="true" id="134fce2a-bab1-4fc1-88be-380e3b2feb07" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/GridCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/GridCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Movement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Movement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/OptimizationEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/OptimizationEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/engineering/PathLossModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/engineering/PathLossModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/AccessPoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/AccessPoint.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/GridCell.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/GridCell.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Movement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Movement.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -170,5 +162,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java</url>
+          <line>132</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
