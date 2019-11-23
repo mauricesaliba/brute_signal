@@ -99,4 +99,33 @@ public class OptimizationEngine {
         return sum / signalStrengthHeatMap.length + signalStrengthHeatMap[0].length;
     }
 
+    private AccessPoint getBestAccessPointToMove(float[][] signalStrengthMap, GridCell gridCell, AccessPoint[] accessPoints) {
+        if(accessPoints.length == 0) {
+            return null;
+        }
+
+        float lowestSum = Float.MAX_VALUE;
+        AccessPoint bestAccessPoint = accessPoints[0];
+
+        for(AccessPoint accessPoint : accessPoints) {
+            List<GridPoint> gridPoints = Grid.findLine(
+                    accessPoint.getGridPoint().getColumn(),
+                    accessPoint.getGridPoint().getRow(),
+                    gridCell.getGridPoint().getColumn(),
+                    gridCell.getGridPoint().getRow());
+
+            float currentSum = 0;
+            for (GridPoint gridPoint : gridPoints) {
+                currentSum += signalStrengthMap[gridPoint.getColumn()][gridPoint.getRow()];
+            }
+
+            if(currentSum < lowestSum) {
+                bestAccessPoint = accessPoint;
+                lowestSum = currentSum;
+            }
+        }
+
+        return bestAccessPoint;
+    }
+
 }
