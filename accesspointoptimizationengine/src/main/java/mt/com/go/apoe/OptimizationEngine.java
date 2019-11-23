@@ -20,7 +20,7 @@ public class OptimizationEngine {
 
     private static final int MAX_STEPS = 50;
     private static final int MAX_ACCESS_POINTS = 5;
-    private static final float AVERAGE_DECIBEL_THRESHOLD = -50;
+    private static final float AVERAGE_DECIBEL_THRESHOLD = -30;
     private static final int GRID_CELL_SIZE = 20; //This is in cm
 
     public Recommendation getOptimalSolution(Wall[] uiWalls) {
@@ -46,7 +46,7 @@ public class OptimizationEngine {
             int step = 0;
 
             while(step < MAX_STEPS) {
-                double[][] signalStrengthHeatMap = pathLossModel.generateHeatMap(pathLossHeatMap, accessPoints, true);
+                double[][] signalStrengthHeatMap = pathLossModel.generateHeatMap(pathLossHeatMap, accessPoints, false);
 
                 GridPoint gridPoint = getMostAttractiveGridPoint(usabilityGrid, signalStrengthHeatMap);
                 AccessPoint accessPoint = getBestAccessPointToMove(signalStrengthHeatMap, gridPoint, accessPoints);
