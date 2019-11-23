@@ -2,14 +2,14 @@ package mt.com.go.apoe.model;
 
 public class GridCell {
 
-    private boolean vacant;
+    private boolean usable;
 
-    public GridCell(boolean vacant) {
-        this.vacant = vacant;
+    public GridCell(boolean usable) {
+        this.usable = usable;
     }
 
-    public boolean isVacant() {
-        return vacant;
+    public boolean isUsable() {
+        return usable;
     }
 
 }
