@@ -41,4 +41,3 @@ public class randomlyPlaceAccessPoints {
     }
 }
 
-//int accesPointCount = 1;
