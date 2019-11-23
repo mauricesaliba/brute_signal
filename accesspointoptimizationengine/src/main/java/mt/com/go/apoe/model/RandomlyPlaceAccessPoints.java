@@ -4,7 +4,7 @@ package mt.com.go.apoe.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class randomlyPlaceAccessPoints {
+public class RandomlyPlaceAccessPoints {
     static void myMethod(GridCell[][] vacanyGrid,int accessPointCount) {
         List<Integer[]> accesPointPlace = new ArrayList<Integer[]>();
 
