@@ -133,7 +133,9 @@ public class PathLossModel {
 
     public double[][] generateHeatMap(PathLossModel.PathLossModelCache cache, AccessPoint APs[], boolean accumulativeHeatMap){
         double[][] heatMap = new double[cache.dim_x][cache.dim_y];
-        Arrays.stream(heatMap).forEach(a -> Arrays.fill(a, Double.NEGATIVE_INFINITY));
+        if(!accumulativeHeatMap) {
+            Arrays.stream(heatMap).forEach(a -> Arrays.fill(a, Double.NEGATIVE_INFINITY));
+        }
         //Array.fill(heatMap, Double.NEGATIVE_INFINITY);
 
         for (AccessPoint AP : APs) {

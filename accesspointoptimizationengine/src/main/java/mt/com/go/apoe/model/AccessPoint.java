@@ -12,8 +12,8 @@ public class AccessPoint implements Movement {
     private static final float BOTTOM_LEFT_RADIANS = (float) (3 * Math.PI / 4);
 
     private GridPoint gridPoint;
-    private float antennaGain;
-    private float transmitPower;
+    private float antennaGain = 3;
+    private float transmitPower = 0.4f;
 
     public AccessPoint(GridPoint gridPoint) {
         this.gridPoint = gridPoint;

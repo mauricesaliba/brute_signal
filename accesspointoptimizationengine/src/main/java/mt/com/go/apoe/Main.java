@@ -17,13 +17,13 @@ public class Main {
 
     private static Wall[] getTestingUIWalls() {
 
-        Wall wall1 = new UiWall(new Point(50, 50), new Point(150, 50), Material.CONCRETE, 50);
+        Wall wall1 = new UiWall(new Point(5, 5), new Point(15, 5), Material.CONCRETE, 50);
 
-        Wall wall2 = new UiWall(new Point(150, 50), new Point(150, 150), Material.CONCRETE, 50);
+        Wall wall2 = new UiWall(new Point(15, 5), new Point(15, 15), Material.CONCRETE, 50);
 
-        Wall wall3 = new UiWall(new Point(150, 150), new Point(50, 150), Material.CONCRETE, 50);
+        Wall wall3 = new UiWall(new Point(15, 15), new Point(5, 15), Material.CONCRETE, 50);
 
-        Wall wall4 = new UiWall(new Point(50, 150), new Point(50, 50), Material.CONCRETE, 50);
+        Wall wall4 = new UiWall(new Point(5, 15), new Point(5, 5), Material.CONCRETE, 50);
 
         Wall walls[] = new UiWall[4];
         walls[0] = wall1;

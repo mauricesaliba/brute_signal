@@ -34,7 +34,7 @@ public class Gridster {
                 gridCells[i][k] = gridCell;
             }
         }
-
+        printCellGrid(gridCells);
         return new Grid(gridCells);
     }
 

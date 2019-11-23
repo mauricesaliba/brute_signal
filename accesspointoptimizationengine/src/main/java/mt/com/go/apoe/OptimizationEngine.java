@@ -14,6 +14,7 @@ import mt.com.go.apoe.model.recommendation.Recommendation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class OptimizationEngine {
 
@@ -45,7 +46,17 @@ public class OptimizationEngine {
 
                 accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, gridPoint);
 
+                System.out.println(step);
+
+                for(int i = 0; i < signalStrengthHeatMap.length; i++) {
+                    for (int j = 0; j < signalStrengthHeatMap[0].length; j++) {
+                        System.out.println(signalStrengthHeatMap[i][j]);
+                    }
+                    System.out.println();
+                }
+
                 if(getAreaCoverage(signalStrengthHeatMap) >= AVERAGE_DECIBEL_THRESHOLD) {
+                    System.out.println("Found a solution!!!");
                     return new Recommendation(accessPoints, signalStrengthHeatMap);
                 }
 
@@ -92,8 +103,8 @@ public class OptimizationEngine {
 
         for (int i = 0; i < accessPointCount; i++) {
             while(true){ //Pray to God
-                int x = random.nextInt(usabilityGrid.getRows() + 1);
-                int y = random.nextInt(usabilityGrid.getColumns() + 1);
+                int x = random.nextInt(usabilityGrid.getRows());
+                int y = random.nextInt(usabilityGrid.getColumns());
 
                 if (usabilityGrid.getGridCells()[x][y].isUsable()){
                     accessPoints.add(new AccessPoint(new GridPoint(x, y)));
