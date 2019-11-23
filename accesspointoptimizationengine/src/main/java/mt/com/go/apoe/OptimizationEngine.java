@@ -18,12 +18,13 @@ public class OptimizationEngine {
     private static final int MAX_STEPS = 10;
     private static final int MAX_ACCESS_POINTS = 5;
     private static final float AVERAGE_DECIBEL_THRESHOLD = 50;
+    private static final int GRID_CELL_SIZE = 20;
 
-    public Recommendation getOptimalSolution(List<Wall> uiWalls) {
-        List<Wall> gridWalls = convertToGridWalls(uiWalls);
+    public Recommendation getOptimalSolution(Wall[] uiWalls) {
+        Wall[] gridWalls = convertToGridWalls(uiWalls);
 
-        PathLossModel.PathLossModelCache pathLossHeatMap = PathLossModel.generateCache(walls);
-        Grid usabilityGrid = new Gridster().generateUsabilityGrid(gridWalls.toArray(new Wall[0]));
+        PathLossModel.PathLossModelCache pathLossHeatMap = new PathLossModel(GRID_CELL_SIZE).generateCache(gridWalls);
+        Grid usabilityGrid = new Gridster().generateUsabilityGrid(gridWalls);
 
         int accessPointCount = 0;
 

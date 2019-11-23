@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="134fce2a-bab1-4fc1-88be-380e3b2feb07" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Gridster.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/OutsideInside.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/GridCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/GridCell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/GridWall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/GridWall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -147,7 +144,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574490070372</updated>
       <workItem from="1574490073865" duration="5357000" />
-      <workItem from="1574511957776" duration="19965000" />
+      <workItem from="1574511957776" duration="21281000" />
     </task>
     <servers />
   </component>
