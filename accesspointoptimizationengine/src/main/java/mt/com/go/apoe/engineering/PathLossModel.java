@@ -1,9 +1,12 @@
 package mt.com.go.apoe.engineering;
 
+import mt.com.go.apoe.model.AccessPoint;
 import mt.com.go.apoe.model.grid.GridPoint;
 import mt.com.go.apoe.model.grid.Gridster;
 import mt.com.go.apoe.model.plan.GridWall;
 import mt.com.go.apoe.model.plan.Wall;
+
+import java.util.Arrays;
 
 public class PathLossModel {
 
@@ -42,6 +45,58 @@ public class PathLossModel {
         }
     }
 
+    public double findLoss(PathLossModel.PathLossModelCache cache, int x1, int y1, final int x2, final int y2)
+    {
+        final int dx = Math.abs(x2 - x1);
+        final int dy = Math.abs(y2 - y1);
+
+        final int sx = x1 < x2 ? 1 : -1;
+        final int sy = y1 < y2 ? 1 : -1;
+
+        int err = dx-dy;
+        int e2;
+        double totalLoss = 0;
+
+        while (true)
+        {
+            totalLoss += cache.cache[x1][y1];
+
+            if (x1 == x2 && y1 == y2)
+                break;
+
+            e2 = 2 * err;
+            if (e2 > -dy)
+            {
+                err = err - dy;
+                x1 = x1 + sx;
+            }
+
+            if (e2 < dx)
+            {
+                err = err + dx;
+                y1 = y1 + sy;
+            }
+        }
+        return totalLoss;
+    }
+
+    double CalculateRxPower (double Distance, double WallLoss, double TransmitPower, boolean Is24GHz, double AntennaGain){
+
+        double distance = Distance;
+        double antennaGainAP = AntennaGain;
+        double txPower = TransmitPower;
+        double antennaGainDevice = 0;
+        double wallLoss = WallLoss;
+        double frequency = (Is24GHz)? 2400 : 5000;
+        double gains = txPower + antennaGainDevice + antennaGainAP;
+        double powerLossCoefficient = 28;
+
+        double PathLoss = 20 * Math.log10(frequency) + powerLossCoefficient * Math.log10(distance) + wallLoss - powerLossCoefficient;
+
+        return gains - PathLoss;
+
+    }
+
     public PathLossModel.PathLossModelCache generateCache(Wall walls[]) {
         GridPoint gridPoint = new Gridster().getGridDimensions(walls);
 
@@ -66,14 +121,46 @@ public class PathLossModel {
 
         public int dim_x;
         public int dim_y;
-        public float cache[][];
+        public double cache[][];
 
         public PathLossModelCache(int Dim_x, int Dim_y) {
             dim_x = Dim_x;
             dim_y = Dim_y;
 
-            cache = new float[dim_x][dim_y];
+            cache = new double[dim_x][dim_y];
         }
+    }
+
+    public double[][] generateHeatMap(PathLossModel.PathLossModelCache cache, AccessPoint APs[], boolean accumulativeHeatMap){
+        double[][] heatMap = new double[cache.dim_x][cache.dim_y];
+        Arrays.stream(heatMap).forEach(a -> Arrays.fill(a, Double.NEGATIVE_INFINITY));
+        //Array.fill(heatMap, Double.NEGATIVE_INFINITY);
+
+        for (AccessPoint AP : APs) {
+            for (int i = 0; i < cache.dim_x; i++) {
+                for (int j = 0; j < cache.dim_y; j++) {
+                    if (i == AP.getGridPoint().getColumn() && j == AP.getGridPoint().getRow()){
+                        if (accumulativeHeatMap) {
+                            heatMap[i][j] += AP.getTransmitPower();
+                        }
+                        else {
+                            heatMap[i][j] = Math.max(AP.getTransmitPower(), heatMap[i][j]);
+                        }
+                        continue;
+                    }
+                    double distance = Math.sqrt((Math.pow((AP.getGridPoint().getColumn()-i), 2))+(Math.pow(AP.getGridPoint().getRow()-j, 2)))*gridCellSize;
+                    double totalLoss = findLoss(cache, (int) (AP.getGridPoint().getColumn()), (int) (AP.getGridPoint().getRow()), (i), (j));
+                    double recievedPower = Math.round(CalculateRxPower(distance, totalLoss, AP.getTransmitPower(), true, AP.getAntennaGain()));
+                    if (accumulativeHeatMap) {
+                        heatMap[i][j] += recievedPower;
+                    }
+                    else {
+                        heatMap[i][j] = Math.max(recievedPower, heatMap[i][j]);
+                    }
+                }
+            }
+        }
+        return heatMap;
     }
 
 }

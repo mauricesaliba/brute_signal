@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="134fce2a-bab1-4fc1-88be-380e3b2feb07" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/recommendation/Recommendation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/recommendation/Recommendation.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,8 +47,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31839082" />
     <property name="settings.editor.selected.configurable" value="Debugger_Data_Views_Java" />
   </component>
@@ -84,8 +87,7 @@
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="mt.com.go.apoe.Main" />
-      <module name="accesspointoptimizationengine" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <module name="access-point-optimization-engine" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="mt.com.go.apoe.model.plan.*" />

@@ -7,9 +7,9 @@ import java.util.List;
 public class Recommendation {
 
     private AccessPoint[] accessPoints;
-    private float[][] signalStrengthHeatMap;
+    private double[][] signalStrengthHeatMap;
 
-    public Recommendation(AccessPoint[] accessPoints, float[][] signalStrengthHeatMap) {
+    public Recommendation(AccessPoint[] accessPoints, double[][] signalStrengthHeatMap) {
         this.accessPoints = accessPoints;
         this.signalStrengthHeatMap = signalStrengthHeatMap;
     }
@@ -18,7 +18,7 @@ public class Recommendation {
         return accessPoints;
     }
 
-    public float[][] getSignalStrengthHeatMap() {
+    public double[][] getSignalStrengthHeatMap() {
         return signalStrengthHeatMap;
     }
 
