@@ -1,4 +1,5 @@
-pathlossHeatMap <- getPathlossHeatMap(Wall[] walls): Matrix of floats?
+pathlossHeatMap <- getPathlossHeatMap(Wall[] walls): float[][]
+vacancyGrid <- generateVacanyGrid(): GridCell[][]
 
 accessPointCount <- 0
 MAX_STEPS = 10
@@ -10,7 +11,7 @@ bestAccessPoints: AccessPoint[] <- null
 do 
 	accessPointCount++
 
-	accessPoints: AccessPoint[] <- randomlyPlaceAccessPoints(accessPointCount)
+	accessPoints: AccessPoint[] <- randomlyPlaceAccessPoints(vacanyGrid, accessPointCount)
 	step = 0
 	areaCoverageAchieved = false
 
@@ -37,29 +38,18 @@ return bestSignalStrengthHeatMap, bestAccessPointLocations
 
 outputImage(bestSignalStrengthHeatMap)
 
-
- 	
-
-
-
-
-
-
-
-
-
-start x = 20
-start y = 10
-
-end x = 25
-end y = 
-
-Coordinate space is in meters? yes x10m
-A point is top left or middle? yes
-
 Definitions:
 
 Wall:
-	x1,y1,x2,y2 (float?)
-	thickness (float cm)
-	material (enum)
+	start: Point
+	end: Point
+	material: Enum<Material>
+	thickness: int
+
+AccessPoint:
+	position: Point
+	antennaGain: float
+	transmitPower: float
+
+GridCell:
+	vacant: boolean
