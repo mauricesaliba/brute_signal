@@ -2,7 +2,6 @@ package mt.com.go.apoe.model;
 
 import mt.com.go.apoe.model.grid.Movement;
 import mt.com.go.apoe.model.grid.GridPoint;
-import mt.com.go.apoe.model.plan.Point;
 
 public class AccessPoint implements Movement {
 
@@ -11,12 +10,12 @@ public class AccessPoint implements Movement {
     private static final float BOTTOM_RIGHT_RADIANS = (float) (Math.PI / 4);
     private static final float BOTTOM_LEFT_RADIANS = (float) ((3 * Math.PI) / 4);
 
-    private GridPoint gridPoint;
+    private GridPoint currentGridPoint;
     private float antennaGain = 3;
     private float transmitPower = 0.4f;
 
-    public AccessPoint(GridPoint gridPoint) {
-        this.gridPoint = gridPoint;
+    public AccessPoint(GridPoint currentGridPoint) {
+        this.currentGridPoint = currentGridPoint;
     }
 
     public float getAntennaGain() {
@@ -27,24 +26,24 @@ public class AccessPoint implements Movement {
         return transmitPower;
     }
 
-    public GridPoint getGridPoint() {
-        return gridPoint;
+    public GridPoint getCurrentGridPoint() {
+        return currentGridPoint;
     }
 
-    public void moveTowards(int rowCount, int columnCount, GridPoint gridPoint) {
-        float deltaX = gridPoint.getRow() - this.gridPoint.getRow();
-        float deltaY = this.gridPoint.getColumn() - gridPoint.getColumn();
+    public void moveTowards(int rowCount, int columnCount, GridPoint attractiveGridPoint) {
+        float deltaX = attractiveGridPoint.getRow() - this.currentGridPoint.getRow();
+        float deltaY = this.currentGridPoint.getColumn() - attractiveGridPoint.getColumn();
 
         float radians = (float) Math.atan2(deltaY, deltaX);
 
         if(radians >= TOP_LEFT_RADIANS && radians <= TOP_RIGHT_RADIANS) {
-            moveUp(this.gridPoint);
+            moveUp(this.currentGridPoint);
         } else if(radians >= TOP_RIGHT_RADIANS && radians <= BOTTOM_RIGHT_RADIANS) {
-            moveRight(columnCount, this.gridPoint);
+            moveRight(columnCount, this.currentGridPoint);
         } else if(radians >= BOTTOM_RIGHT_RADIANS && radians <= BOTTOM_LEFT_RADIANS) {
-            moveDown(rowCount, this.gridPoint);
+            moveDown(rowCount, this.currentGridPoint);
         } else {
-            moveLeft(this.gridPoint);
+            moveLeft(this.currentGridPoint);
         }
     }
 

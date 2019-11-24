@@ -14,13 +14,12 @@ import mt.com.go.apoe.model.recommendation.Recommendation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Stream;
 
 public class OptimizationEngine {
 
     private static final int MAX_STEPS = 100;
     private static final int MAX_ACCESS_POINTS = 5;
-    private static final float AVERAGE_DECIBEL_THRESHOLD = -40;
+    private static final float AVERAGE_DECIBEL_THRESHOLD = -60;
     private static final int GRID_CELL_SIZE = 20; //This is in cm
     private static final float UI_SCALE_FACTOR = 1f;
 
@@ -30,13 +29,6 @@ public class OptimizationEngine {
         PathLossModel pathLossModel = new PathLossModel(GRID_CELL_SIZE);
         PathLossModel.PathLossModelCache pathLossHeatMap = pathLossModel.generateCache(gridWalls);
         Grid usabilityGrid = new Gridster(GRID_CELL_SIZE).generateUsabilityGrid(gridWalls);
-
-        for(int i = 0; i < pathLossHeatMap.cache.length; i++) {
-            for (int j = 0; j < pathLossHeatMap.cache[0].length; j++) {
-                System.out.print(pathLossHeatMap.cache[i][j] + ", ");
-            }
-            System.out.println();
-        }
 
         int accessPointCount = 0;
 
@@ -168,8 +160,8 @@ public class OptimizationEngine {
 
         for(AccessPoint accessPoint : accessPoints) {
             List<GridPoint> gridPoints = Grid.findLine(
-                    accessPoint.getGridPoint().getColumn(),
-                    accessPoint.getGridPoint().getRow(),
+                    accessPoint.getCurrentGridPoint().getColumn(),
+                    accessPoint.getCurrentGridPoint().getRow(),
                     gridPoint.getColumn(),
                     gridPoint.getRow());
 

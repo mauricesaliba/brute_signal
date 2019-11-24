@@ -141,7 +141,7 @@ public class PathLossModel {
         for (AccessPoint AP : APs) {
             for (int i = 0; i < cache.dim_x; i++) {
                 for (int j = 0; j < cache.dim_y; j++) {
-                    if (i == AP.getGridPoint().getColumn() && j == AP.getGridPoint().getRow()){
+                    if (i == AP.getCurrentGridPoint().getColumn() && j == AP.getCurrentGridPoint().getRow()){
                         if (accumulativeHeatMap) {
                             heatMap[i][j] += AP.getTransmitPower();
                         }
@@ -150,8 +150,8 @@ public class PathLossModel {
                         }
                         continue;
                     }
-                    double distance = Math.sqrt((Math.pow((AP.getGridPoint().getColumn()-i), 2))+(Math.pow(AP.getGridPoint().getRow()-j, 2)));
-                    double totalLoss = findLoss(cache, (int) (AP.getGridPoint().getColumn()), (int) (AP.getGridPoint().getRow()), (i), (j));
+                    double distance = Math.sqrt((Math.pow((AP.getCurrentGridPoint().getColumn()-i), 2))+(Math.pow(AP.getCurrentGridPoint().getRow()-j, 2)));
+                    double totalLoss = findLoss(cache, (int) (AP.getCurrentGridPoint().getColumn()), (int) (AP.getCurrentGridPoint().getRow()), (i), (j));
                     double recievedPower = Math.round(CalculateRxPower(distance, totalLoss, AP.getTransmitPower(), true, AP.getAntennaGain()));
                     if (accumulativeHeatMap) {
                         heatMap[i][j] += recievedPower;
