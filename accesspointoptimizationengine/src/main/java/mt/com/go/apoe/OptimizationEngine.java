@@ -18,9 +18,9 @@ import java.util.stream.Stream;
 
 public class OptimizationEngine {
 
-    private static final int MAX_STEPS = 50;
+    private static final int MAX_STEPS = 100;
     private static final int MAX_ACCESS_POINTS = 5;
-    private static final float AVERAGE_DECIBEL_THRESHOLD = -30;
+    private static final float AVERAGE_DECIBEL_THRESHOLD = -40;
     private static final int GRID_CELL_SIZE = 20; //This is in cm
 
     public Recommendation getOptimalSolution(Wall[] uiWalls) {
@@ -62,7 +62,7 @@ public class OptimizationEngine {
                     System.out.println();
                 }
 
-                if(getAreaCoverage(usabilityGrid, signalStrengthHeatMap) / accessPointCount >= AVERAGE_DECIBEL_THRESHOLD) {
+                if(getAreaCoverage(usabilityGrid, signalStrengthHeatMap) >= AVERAGE_DECIBEL_THRESHOLD) {
                     System.out.println("Found a solution!!!");
                     return new Recommendation(accessPoints, signalStrengthHeatMap);
                 }

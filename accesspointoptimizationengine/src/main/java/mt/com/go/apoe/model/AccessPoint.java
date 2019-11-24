@@ -6,10 +6,10 @@ import mt.com.go.apoe.model.plan.Point;
 
 public class AccessPoint implements Movement {
 
-    private static final float TOP_LEFT_RADIANS = (float) (5 * Math.PI / 4);
-    private static final float TOP_RIGHT_RADIANS = (float) (7 * Math.PI / 4);
+    private static final float TOP_LEFT_RADIANS = (float) ((5 * Math.PI) / 4);
+    private static final float TOP_RIGHT_RADIANS = (float) ((7 * Math.PI) / 4);
     private static final float BOTTOM_RIGHT_RADIANS = (float) (Math.PI / 4);
-    private static final float BOTTOM_LEFT_RADIANS = (float) (3 * Math.PI / 4);
+    private static final float BOTTOM_LEFT_RADIANS = (float) ((3 * Math.PI) / 4);
 
     private GridPoint gridPoint;
     private float antennaGain = 3;
@@ -33,7 +33,7 @@ public class AccessPoint implements Movement {
 
     public void moveTowards(int rowCount, int columnCount, GridPoint gridPoint) {
         float deltaX = gridPoint.getRow() - this.gridPoint.getRow();
-        float deltaY = gridPoint.getColumn() - this.gridPoint.getColumn();
+        float deltaY = this.gridPoint.getColumn() - gridPoint.getColumn();
 
         float radians = (float) Math.atan2(deltaY, deltaX);
 

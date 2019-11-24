@@ -12,14 +12,14 @@ public interface Movement {
         gridPoint.setRow(row);
     }
 
-    default void moveRight(int columnCount, GridPoint gridPoint) {
-        int column = gridPoint.getColumn() > columnCount ? gridPoint.getColumn() : gridPoint.getColumn() + 1;
-        gridPoint.setColumn(column);
+    default void moveRight(int columnCount, GridPoint currentPosition) {
+        int column = currentPosition.getColumn() >= columnCount - 1 ? currentPosition.getColumn() - 1 : currentPosition.getColumn() + 1;
+        currentPosition.setColumn(column);
     }
 
-    default void moveLeft(GridPoint gridPoint) {
-        int column = gridPoint.getColumn() <= 0 ? 0 : gridPoint.getColumn() - 1;
-        gridPoint.setColumn(column);
+    default void moveLeft(GridPoint currentPosition) {
+        int column = currentPosition.getColumn() <= 0 ? 0 : currentPosition.getColumn() - 1;
+        currentPosition.setColumn(column);
     }
 
 }
