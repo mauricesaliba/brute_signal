@@ -22,6 +22,7 @@ public class OptimizationEngine {
     private static final int MAX_ACCESS_POINTS = 5;
     private static final float AVERAGE_DECIBEL_THRESHOLD = -40;
     private static final int GRID_CELL_SIZE = 20; //This is in cm
+    private static final float UI_SCALE_FACTOR = 1f;
 
     public Recommendation getOptimalSolution(Wall[] uiWalls) {
         Wall[] gridWalls = convertToGridWalls(uiWalls);
@@ -88,12 +89,12 @@ public class OptimizationEngine {
                 UiWall uiWall = (UiWall) wall;
 
                 GridPoint startGridPoint = new GridPoint(
-                        (int) ((uiWall.getStart().getY() * 100) / GRID_CELL_SIZE),
-                        (int) ((uiWall.getStart().getX() * 100) / GRID_CELL_SIZE));
+                        (int) ((uiWall.getStart().getY() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE),
+                        (int) ((uiWall.getStart().getX() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE));
 
                 GridPoint endGridPoint = new GridPoint(
-                        (int) ((uiWall.getEnd().getY() * 100) / GRID_CELL_SIZE),
-                        (int) ((uiWall.getEnd().getX() * 100) / GRID_CELL_SIZE));
+                        (int) ((uiWall.getEnd().getY() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE),
+                        (int) ((uiWall.getEnd().getX() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE));
 
                 gridWalls[i] = new GridWall(startGridPoint, endGridPoint, uiWall.getMaterial(), uiWall.getThickness());
             } else {
