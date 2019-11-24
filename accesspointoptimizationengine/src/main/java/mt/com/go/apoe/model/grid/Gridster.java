@@ -1,9 +1,10 @@
 package mt.com.go.apoe.model.grid;
 
 import mt.com.go.apoe.model.plan.GridWall;
-import mt.com.go.apoe.model.plan.Point;
-import mt.com.go.apoe.model.plan.UiWall;
 import mt.com.go.apoe.model.plan.Wall;
+
+import java.util.List;
+import java.util.Stack;
 
 public class Gridster {
 
@@ -14,31 +15,100 @@ public class Gridster {
     }
 
     public Grid generateUsabilityGrid(Wall[] walls) {
+        Grid grid = convertWallsToGridCells(walls);
+        GridCell [][] gridCells = grid.getGridCells();
+
+        printWallCellGrid(gridCells);
+
+        Stack<GridCell> stack = new Stack<>();
+        stack.add(gridCells[0][0]);
+
+        while(!stack.isEmpty()) {
+            GridCell gridCell = stack.pop();
+            if(gridCell.isVisited()){
+                continue;
+            }
+            gridCell.setVisited(true);
+            gridCell.setUsable(false);
+
+            int row = gridCell.getGridPoint().getRow();
+            int column = gridCell.getGridPoint().getColumn();
+
+            if(grid.isNotOutOfBounds(row, column + 1) && gridCells[row][column + 1].isNotAWall()){
+                stack.push(gridCells[row][column + 1]);
+            }
+            if(grid.isNotOutOfBounds(row + 1, column + 1) && gridCells[row + 1][column + 1].isNotAWall()) {
+                stack.push(gridCells[row + 1][column + 1]);
+            }
+            if(grid.isNotOutOfBounds(row + 1, column) && gridCells[row + 1][column].isNotAWall()) {
+                stack.push(gridCells[row + 1][column]);
+            }
+            if(grid.isNotOutOfBounds(row + 1, column - 1) && gridCells[row + 1][column - 1].isNotAWall()) {
+                stack.push(gridCells[row + 1][column - 1]);
+            }
+            if (grid.isNotOutOfBounds(row, column - 1) && gridCells[row][column - 1].isNotAWall()) {
+                stack.push(gridCells[row][column - 1]);
+            }
+            if (grid.isNotOutOfBounds(row - 1, column - 1) && gridCells[row - 1][column - 1].isNotAWall()){
+                stack.push(gridCells[row - 1][column - 1]);
+            }
+            if (grid.isNotOutOfBounds(row - 1, column) && gridCells[row - 1][column].isNotAWall()) {
+                stack.push(gridCells[row - 1][column]);
+            }
+            if (grid.isNotOutOfBounds(row - 1, column + 1) && gridCells[row - 1][column + 1].isNotAWall()) {
+                stack.push(gridCells[row - 1][column + 1]);
+            }
+        }
+
+        printUsabilityCellGrid(gridCells);
+
+        return grid;
+    }
+
+    private Grid convertWallsToGridCells(Wall[] walls) {
         GridPoint dimensions = getGridDimensions(walls);
         GridCell[][] gridCells = new GridCell[dimensions.getRow()][dimensions.getColumn()];
 
+        for (int i = 0; i < gridCells.length; i++) {
+            for (int j = 0; j < gridCells[0].length; j++) {
+                gridCells[i][j] = new GridCell(new GridPoint(i, j));
+            }
+        }
+
+        Grid grid = new Grid(gridCells);
+
+        for (Wall wall : walls) {
+            GridWall gridWall = (GridWall) wall;
+
+            List<GridPoint> gridPoints = Grid.findLine(
+                    gridWall.getGridPointStart().getColumn(),
+                    gridWall.getGridPointStart().getRow(),
+                    gridWall.getGridPointEnd().getColumn(),
+                    gridWall.getGridPointEnd().getRow());
+            gridPoints.parallelStream()
+                    .forEach(gridPoint -> grid.getGridCells()[gridPoint.getRow()][gridPoint.getColumn()].setWall(true).setUsable(false));
+        }
+
+        return grid;
+    }
+
+    public void printWallCellGrid(GridCell[][] gridCells) {
         int rows = gridCells.length;
         int columns = gridCells[0].length;
 
-        OutsideInside outsideInside = new OutsideInside();
-
-        for(int i = 0; i < rows; i++) {
-            for(int k = 0; k < columns; k++){
-                GridCell gridCell = new GridCell(new GridPoint(i, k), false);
-                GridPoint gridPoint = gridCell.getGridPoint();
-                Point point = new Point(gridPoint.getRow(),gridPoint.getColumn());
-
-                if(outsideInside.isInside(walls, point)) {
-                    gridCell.setToUsable();
+        for(int i=0; i < rows; i++ ) {
+            for(int k=0; k < columns; k++ ) {
+                if(gridCells[i][k].isNotAWall()) {
+                    System.out.print('0');
+                } else {
+                    System.out.print('1');
                 }
-                gridCells[i][k] = gridCell;
             }
+            System.out.println();
         }
-        printCellGrid(gridCells);
-        return new Grid(gridCells);
     }
 
-    public void printCellGrid(GridCell[][] gridCells) {
+    public void printUsabilityCellGrid(GridCell[][] gridCells) {
         int rows = gridCells.length;
         int columns = gridCells[0].length;
 

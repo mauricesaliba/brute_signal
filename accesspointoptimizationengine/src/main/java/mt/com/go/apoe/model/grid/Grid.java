@@ -23,6 +23,10 @@ public class Grid {
         return getRows() == 0 ? 0 : gridCells[0].length;
     }
 
+    public boolean isNotOutOfBounds(int row, int column) {
+        return row >= 0 && column >= 0 && row < getRows() && column < getColumns();
+    }
+
     public static List<GridPoint> findLine(int x0, int y0, int x1, int y1) {
         List<GridPoint> line = new ArrayList<>();
 

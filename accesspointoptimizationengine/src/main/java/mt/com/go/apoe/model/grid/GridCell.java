@@ -3,11 +3,12 @@ package mt.com.go.apoe.model.grid;
 public class GridCell {
 
     private GridPoint gridPoint;
-    private boolean usable;
+    private boolean usable = true;
+    private boolean wall;
+    private boolean visited;
 
-    public GridCell(GridPoint gridPoint, boolean usable) {
+    public GridCell(GridPoint gridPoint) {
         this.gridPoint = gridPoint;
-        this.usable = usable;
     }
 
     public GridPoint getGridPoint() {
@@ -18,12 +19,27 @@ public class GridCell {
         return usable;
     }
 
-    public void setToUsable() {
-        usable = true;
+    public GridCell setUsable(boolean usable) {
+        this.usable = usable;
+        return this;
     }
 
-    public void setToUnUsable() {
-        usable = false;
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public GridCell setVisited(boolean visited) {
+        this.visited = visited;
+        return this;
+    }
+
+    public boolean isNotAWall() {
+        return !wall;
+    }
+
+    public GridCell setWall(boolean wall) {
+        this.wall = wall;
+        return this;
     }
 
     @Override
