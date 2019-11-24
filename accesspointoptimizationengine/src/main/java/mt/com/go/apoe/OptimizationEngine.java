@@ -48,12 +48,14 @@ public class OptimizationEngine {
 
                 System.out.println(step);
 
-                for(int i = 0; i < signalStrengthHeatMap.length; i++) {
-                    for (int j = 0; j < signalStrengthHeatMap[0].length; j++) {
-                        System.out.print(signalStrengthHeatMap[i][j] + ", ");
-                    }
-                    System.out.println();
-                }
+//                for(int i = 0; i < signalStrengthHeatMap.length; i++) {
+//                    for (int j = 0; j < signalStrengthHeatMap[0].length; j++) {
+//                        System.out.print(signalStrengthHeatMap[i][j] + ", ");
+//                    }
+//                    System.out.println();
+//                }
+
+                Heatmap.generateHeatMapImage(signalStrengthHeatMap, step, accessPointCount);
 
                 if(getAreaCoverage(usabilityGrid, signalStrengthHeatMap) >= AVERAGE_DECIBEL_THRESHOLD) {
                     System.out.println("Found a solution!!!");
