@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class OptimizationEngine {
 
-    private static final int MAX_STEPS = 100;
+    private static final int MAX_STEPS = 150;
     private static final int MAX_ACCESS_POINTS = 5;
     private static final float AVERAGE_DECIBEL_THRESHOLD = -60;
     private static final int GRID_CELL_SIZE = 20; //This is in cm
@@ -29,6 +29,13 @@ public class OptimizationEngine {
         PathLossModel pathLossModel = new PathLossModel(GRID_CELL_SIZE);
         PathLossModel.PathLossModelCache pathLossHeatMap = pathLossModel.generateCache(gridWalls);
         Grid usabilityGrid = new Gridster(GRID_CELL_SIZE).generateUsabilityGrid(gridWalls);
+
+        for(int i = 0; i < pathLossHeatMap.cache.length; i++) {
+            for (int j = 0; j < pathLossHeatMap.cache[0].length; j++) {
+                System.out.print(pathLossHeatMap.cache[i][j] + ", ");
+            }
+            System.out.println();
+        }
 
         int accessPointCount = 0;
 
@@ -102,11 +109,11 @@ public class OptimizationEngine {
 
         for (int i = 0; i < accessPointCount; i++) {
             while(true){ //Pray to God
-                int x = random.nextInt(usabilityGrid.getRows());
-                int y = random.nextInt(usabilityGrid.getColumns());
+                int row = random.nextInt(usabilityGrid.getRows());
+                int column = random.nextInt(usabilityGrid.getColumns());
 
-                if (usabilityGrid.getGridCells()[x][y].isUsable()){
-                    accessPoints.add(new AccessPoint(new GridPoint(x, y)));
+                if (usabilityGrid.getGridCells()[row][column].isUsable()){
+                    accessPoints.add(new AccessPoint(new GridPoint(row, column)));
                     break;
                 }
             }
@@ -154,7 +161,7 @@ public class OptimizationEngine {
             return null;
         }
 
-        float lowestSum = Float.MAX_VALUE;
+        float lowestAveragedSum = Float.MAX_VALUE;
         AccessPoint bestAccessPoint = accessPoints[0];
 
         for(AccessPoint accessPoint : accessPoints) {
@@ -165,19 +172,19 @@ public class OptimizationEngine {
                     gridPoint.getRow());
 
             float currentSum = 0;
+
             for (GridPoint gp : gridPoints) {
-                currentSum += signalStrengthMap[gp.getColumn()][gp.getRow()];
+                currentSum += Math.abs(signalStrengthMap[gp.getRow()][gp.getColumn()]);
             }
 
-            if(currentSum < lowestSum) {
+            float currentAveragedSum = currentSum / gridPoints.size();
+            if(currentAveragedSum < lowestAveragedSum) {
                 bestAccessPoint = accessPoint;
-                lowestSum = currentSum;
+                lowestAveragedSum = currentAveragedSum;
             }
         }
 
         return bestAccessPoint;
     }
-
-
 
 }

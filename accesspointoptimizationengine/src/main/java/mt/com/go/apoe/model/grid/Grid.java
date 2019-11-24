@@ -40,7 +40,7 @@ public class Grid {
         int e2;
 
         while (true) {
-            line.add(new GridPoint(x0, y0));
+            line.add(new GridPoint(y0, x0));
 
             if (x0 == x1 && y0 == y1)
                 break;

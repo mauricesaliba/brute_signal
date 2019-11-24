@@ -4,6 +4,13 @@
     <list default="true" id="134fce2a-bab1-4fc1-88be-380e3b2feb07" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Gridster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Gridster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/OptimizationEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/OptimizationEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/AccessPoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/AccessPoint.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Grid.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Grid.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Gridster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Gridster.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -166,11 +173,42 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java</url>
-          <line>130</line>
-          <option name="timeStamp" value="49" />
+          <line>39</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Movement.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="attractiveGridPoint" />
+        <watch expression="this.currentGridPoint" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

@@ -37,13 +37,13 @@ public class AccessPoint implements Movement {
         float absDeltaY = Math.abs(deltaY);
         float absDeltaX = Math.abs(deltaX);
 
-        if( absDeltaY > absDeltaX && absDeltaY > 0 ) {
+        if( absDeltaY >= absDeltaX && absDeltaY > 0 ) {
             moveRight(columnCount, this.currentGridPoint);
-        } else if(absDeltaY > absDeltaX && absDeltaY < 0) {
+        } else if(absDeltaY >= absDeltaX && absDeltaY < 0) {
             moveLeft(this.currentGridPoint);
-        } else if(absDeltaX > absDeltaY && absDeltaX > 0) {
+        } else if(absDeltaX >= absDeltaY && absDeltaX > 0) {
             moveUp(this.currentGridPoint);
-        } else if(absDeltaX > absDeltaY && absDeltaX < 0) {
+        } else if(absDeltaX >= absDeltaY && absDeltaX < 0) {
             moveDown(rowCount, this.currentGridPoint);
         }
     }

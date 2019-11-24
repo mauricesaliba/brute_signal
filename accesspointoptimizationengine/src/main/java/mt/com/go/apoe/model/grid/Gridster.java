@@ -106,6 +106,7 @@ public class Gridster {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     public void printUsabilityCellGrid(GridCell[][] gridCells) {
@@ -122,6 +123,8 @@ public class Gridster {
             }
             System.out.println();
         }
+
+        System.out.println();
     }
 
     public GridPoint getGridDimensions(Wall walls[]){
@@ -153,7 +156,7 @@ public class Gridster {
         int dim_x = (int) Math.ceil((max_x+min_x));
         int dim_y = (int) Math.ceil((max_y+min_y));
 
-        return new GridPoint(dim_x, dim_y);
+        return new GridPoint(dim_y, dim_x);
     }
 
 }
