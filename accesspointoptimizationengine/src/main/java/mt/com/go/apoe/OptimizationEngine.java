@@ -32,14 +32,18 @@ public class OptimizationEngine {
 
         int accessPointCount = 0;
 
+        //Move inside when we fix the Optimal solution
+        double[][] signalStrengthHeatMap = null;
+        AccessPoint[] accessPoints;
+
         do {
             accessPointCount++;
 
-            AccessPoint[] accessPoints = randomlyPlaceAccessPoints(usabilityGrid, accessPointCount);
+            accessPoints = randomlyPlaceAccessPoints(usabilityGrid, accessPointCount);
             int step = 0;
 
             while(step < MAX_STEPS) {
-                double[][] signalStrengthHeatMap = pathLossModel.generateHeatMap(pathLossHeatMap, accessPoints, false);
+                signalStrengthHeatMap = pathLossModel.generateHeatMap(pathLossHeatMap, accessPoints, false);
 
                 GridPoint gridPoint = getMostAttractiveGridPoint(usabilityGrid, signalStrengthHeatMap);
                 AccessPoint accessPoint = getBestAccessPointToMove(signalStrengthHeatMap, gridPoint, accessPoints);
@@ -47,13 +51,6 @@ public class OptimizationEngine {
                 accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, gridPoint);
 
                 System.out.println(step);
-
-//                for(int i = 0; i < signalStrengthHeatMap.length; i++) {
-//                    for (int j = 0; j < signalStrengthHeatMap[0].length; j++) {
-//                        System.out.print(signalStrengthHeatMap[i][j] + ", ");
-//                    }
-//                    System.out.println();
-//                }
 
                 Heatmap.generateHeatMapImage(signalStrengthHeatMap, step, accessPointCount);
 
@@ -66,7 +63,7 @@ public class OptimizationEngine {
             }
         } while (accessPointCount < MAX_ACCESS_POINTS);
 
-        return new EmptyRecommendation();
+        return new Recommendation(accessPoints, signalStrengthHeatMap);
     }
 
     private Wall[] convertToGridWalls(Wall[] walls) {
