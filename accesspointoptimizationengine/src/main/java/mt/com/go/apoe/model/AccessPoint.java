@@ -31,19 +31,20 @@ public class AccessPoint implements Movement {
     }
 
     public void moveTowards(int rowCount, int columnCount, GridPoint attractiveGridPoint) {
-        float deltaX = attractiveGridPoint.getRow() - this.currentGridPoint.getRow();
+        float deltaX = this.currentGridPoint.getRow() - attractiveGridPoint.getRow();
         float deltaY = this.currentGridPoint.getColumn() - attractiveGridPoint.getColumn();
 
-        float radians = (float) Math.atan2(deltaY, deltaX);
+        float absDeltaY = Math.abs(deltaY);
+        float absDeltaX = Math.abs(deltaX);
 
-        if(radians >= TOP_LEFT_RADIANS && radians <= TOP_RIGHT_RADIANS) {
-            moveUp(this.currentGridPoint);
-        } else if(radians >= TOP_RIGHT_RADIANS && radians <= BOTTOM_RIGHT_RADIANS) {
+        if( absDeltaY > absDeltaX && absDeltaY > 0 ) {
             moveRight(columnCount, this.currentGridPoint);
-        } else if(radians >= BOTTOM_RIGHT_RADIANS && radians <= BOTTOM_LEFT_RADIANS) {
-            moveDown(rowCount, this.currentGridPoint);
-        } else {
+        } else if(absDeltaY > absDeltaX && absDeltaY < 0) {
             moveLeft(this.currentGridPoint);
+        } else if(absDeltaX > absDeltaY && absDeltaX > 0) {
+            moveUp(this.currentGridPoint);
+        } else if(absDeltaX > absDeltaY && absDeltaX < 0) {
+            moveDown(rowCount, this.currentGridPoint);
         }
     }
 
