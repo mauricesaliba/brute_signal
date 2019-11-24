@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">WiFi Scanner</string>
-    <string name="scan_wifi_button">Scan WiFi</string>
+    <string name="app_name">WiFi Wizard</string>
+    <string name="scan_wifi_button">Show Me WiFi Connections Here</string>
 </resources>
