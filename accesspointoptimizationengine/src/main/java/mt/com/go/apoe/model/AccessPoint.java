@@ -31,8 +31,8 @@ public class AccessPoint implements Movement {
     }
 
     public void moveTowards(int rowCount, int columnCount, GridPoint attractiveGridPoint) {
-        float deltaRow = this.currentGridPoint.getRow() - attractiveGridPoint.getRow();
-        float deltaColumn = this.currentGridPoint.getColumn() - attractiveGridPoint.getColumn();
+        float deltaRow = this.currentGridPoint.getRow() - attractiveGridPoint.getColumn();
+        float deltaColumn = this.currentGridPoint.getColumn() - attractiveGridPoint.getRow();
 
         float absDeltaRow = Math.abs(deltaRow);
         float absDeltaColumn = Math.abs(deltaColumn);
