@@ -52,14 +52,15 @@ public class OptimizationEngine {
             while(step < MAX_STEPS) {
                 signalStrengthHeatMap = pathLossModel.generateHeatMap(pathLossHeatMap, accessPoints, false);
 
-                GridPoint gridPoint = getMostAttractiveGridPoint(usabilityGrid, signalStrengthHeatMap);
-                AccessPoint accessPoint = getBestAccessPointToMove(signalStrengthHeatMap, gridPoint, accessPoints);
+                //GridPoint gridPoint = getMostAttractiveGridPoint(usabilityGrid, signalStrengthHeatMap);
+                GridPoint attractiveGridPoint = new GridPoint(75,25);
+                AccessPoint accessPoint = getBestAccessPointToMove(signalStrengthHeatMap, attractiveGridPoint, accessPoints);
 
-                accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, gridPoint);
+                accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, attractiveGridPoint);
 
                 System.out.println(step);
 
-                Heatmap.generateHeatMapImage(signalStrengthHeatMap, step, accessPointCount);
+                Heatmap.generateHeatMapImage(signalStrengthHeatMap, step, accessPointCount, attractiveGridPoint, usabilityGrid);
 
                 if(getAreaCoverage(usabilityGrid, signalStrengthHeatMap) >= AVERAGE_DECIBEL_THRESHOLD) {
                     System.out.println("Found a solution!!!");
@@ -87,12 +88,12 @@ public class OptimizationEngine {
                 UiWall uiWall = (UiWall) wall;
 
                 GridPoint startGridPoint = new GridPoint(
-                        (int) ((uiWall.getStart().getY() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE),
-                        (int) ((uiWall.getStart().getX() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE));
+                        (int) ((uiWall.getStart().getX() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE),
+                        (int) ((uiWall.getStart().getY() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE));
 
                 GridPoint endGridPoint = new GridPoint(
-                        (int) ((uiWall.getEnd().getY() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE),
-                        (int) ((uiWall.getEnd().getX() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE));
+                        (int) ((uiWall.getEnd().getX() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE),
+                        (int) ((uiWall.getEnd().getY() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE));
 
                 gridWalls[i] = new GridWall(startGridPoint, endGridPoint, uiWall.getMaterial(), uiWall.getThickness());
             } else {

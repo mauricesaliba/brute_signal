@@ -1,5 +1,8 @@
 package mt.com.go.apoe;
 
+import mt.com.go.apoe.model.grid.Grid;
+import mt.com.go.apoe.model.grid.GridPoint;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,33 +18,36 @@ public class Heatmap {
     private static final float MIN_HEAT                  = -80f;
     private static final String path  = "results/test_data";
 
-    public static void generateHeatMapImage(double[][] signalStrengthHeatMap, int step, int accessPointCount) {
+    public static void generateHeatMapImage(double[][] signalStrengthHeatMap, int step, int accessPointCount, GridPoint attractionPoint, Grid usabilityGrid) {
         try {
             BufferedImage debugImage = new BufferedImage(
                     signalStrengthHeatMap[0].length,
                     signalStrengthHeatMap.length,
                     BufferedImage.TYPE_INT_RGB
             );
-
-            for (int i = 0; i < signalStrengthHeatMap.length; i++) {
-                for (int j = 0; j < signalStrengthHeatMap[0].length; j++) {
-                    Color color = generateColor(signalStrengthHeatMap[i][j]);
-                    debugImage.setRGB(j, i, color.getRGB());
+            for (int row = 0; row < signalStrengthHeatMap.length; row++) {
+                for (int col = 0; col < signalStrengthHeatMap[0].length; col++) {
+                    Color color = generateColor(signalStrengthHeatMap[row][col]);
+                    debugImage.setRGB(col, row, color.getRGB());
+                    if(!usabilityGrid.getGridCells()[row][col].isNotAWall()){
+                        Color wallColor = Color.WHITE;
+                        debugImage.setRGB(col,row, wallColor.getRGB());
+                    }
                 }
             }
-
+            debugImage.setRGB(attractionPoint.getColumn(), attractionPoint.getRow()-1, Color.BLACK.getRGB());
+            debugImage.setRGB(attractionPoint.getColumn(), attractionPoint.getRow()+1, Color.BLACK.getRGB());
+            debugImage.setRGB(attractionPoint.getColumn()+1, attractionPoint.getRow(), Color.BLACK.getRGB());
+            debugImage.setRGB(attractionPoint.getColumn()-1, attractionPoint.getRow(), Color.BLACK.getRGB());
+            debugImage.setRGB(attractionPoint.getColumn(), attractionPoint.getRow(), Color.BLACK.getRGB());
             Path dir = Paths.get("results");
-
             if (!Files.exists(dir)) {
                 Files.createDirectory(dir);
             }
-
             dir = Paths.get( path + "_" + accessPointCount);
-
             if (!Files.exists(dir)) {
                 Files.createDirectory(dir);
             }
-
             File outputfile = new File(dir.toString() + "/HeatMapResult" + step + ".png");
             ImageIO.write(debugImage, "png", outputfile);
         }

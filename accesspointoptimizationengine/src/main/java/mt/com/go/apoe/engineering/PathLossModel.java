@@ -100,17 +100,17 @@ public class PathLossModel {
     public PathLossModel.PathLossModelCache generateCache(Wall walls[]) {
         GridPoint gridPoint = new Gridster(gridCellSize).getGridDimensions(walls);
 
-        PathLossModel.PathLossModelCache cache = new PathLossModel.PathLossModelCache(gridPoint.getColumn(), gridPoint.getRow());
+        PathLossModel.PathLossModelCache cache = new PathLossModel.PathLossModelCache(gridPoint.getRow(), gridPoint.getColumn());
 
         //loss is currently set as a fixed value (10)
         for (Wall wall : walls) {
             GridWall gridWall = (GridWall) wall;
             findLine(
                     cache,
-                    gridWall.getGridPointStart().getColumn(),
                     gridWall.getGridPointStart().getRow(),
-                    gridWall.getGridPointEnd().getColumn(),
+                    gridWall.getGridPointStart().getColumn(),
                     gridWall.getGridPointEnd().getRow(),
+                    gridWall.getGridPointEnd().getColumn(),
                     10.0f);
         }
 

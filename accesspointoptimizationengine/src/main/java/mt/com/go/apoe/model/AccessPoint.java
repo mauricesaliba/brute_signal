@@ -31,19 +31,19 @@ public class AccessPoint implements Movement {
     }
 
     public void moveTowards(int rowCount, int columnCount, GridPoint attractiveGridPoint) {
-        float deltaX = this.currentGridPoint.getRow() - attractiveGridPoint.getRow();
-        float deltaY = this.currentGridPoint.getColumn() - attractiveGridPoint.getColumn();
+        float deltaRow = this.currentGridPoint.getRow() - attractiveGridPoint.getRow();
+        float deltaColumn = this.currentGridPoint.getColumn() - attractiveGridPoint.getColumn();
 
-        float absDeltaY = Math.abs(deltaY);
-        float absDeltaX = Math.abs(deltaX);
+        float absDeltaRow = Math.abs(deltaRow);
+        float absDeltaColumn = Math.abs(deltaColumn);
 
-        if( absDeltaY >= absDeltaX && absDeltaY > 0 ) {
-            moveRight(columnCount, this.currentGridPoint);
-        } else if(absDeltaY >= absDeltaX && absDeltaY < 0) {
+        if( absDeltaColumn >= absDeltaRow && deltaColumn >= 0 ) {
             moveLeft(this.currentGridPoint);
-        } else if(absDeltaX >= absDeltaY && absDeltaX > 0) {
+        } else if(absDeltaColumn >= absDeltaRow && deltaColumn <= 0) {
+            moveRight(columnCount, this.currentGridPoint);
+        } else if(absDeltaRow >= absDeltaColumn && deltaRow >= 0) {
             moveUp(this.currentGridPoint);
-        } else if(absDeltaX >= absDeltaY && absDeltaX < 0) {
+        } else if(absDeltaRow >= absDeltaColumn && deltaRow <= 0) {
             moveDown(rowCount, this.currentGridPoint);
         }
     }
