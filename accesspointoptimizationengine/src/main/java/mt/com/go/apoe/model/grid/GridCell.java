@@ -2,50 +2,43 @@ package mt.com.go.apoe.model.grid;
 
 public class GridCell {
 
-    private GridPoint gridPoint;
-    private boolean usable = true;
-    private boolean wall;
-    private boolean visited;
+    private GridPoint gridPosition;
+    private Type type;
 
-    public GridCell(GridPoint gridPoint) {
-        this.gridPoint = gridPoint;
+    public enum Type {
+        WALL,
+        INSIDE,
+        OUTSIDE,
+        UNKNOWN
     }
 
-    public GridPoint getGridPoint() {
-        return gridPoint;
+    public GridCell(GridPoint gridPosition) {
+        this.gridPosition = gridPosition;
+        this.type = Type.UNKNOWN;
     }
 
-    public boolean isUsable() {
-        return usable;
+    public GridPoint getGridPosition() {
+        return gridPosition;
     }
 
-    public GridCell setUsable(boolean usable) {
-        this.usable = usable;
-        return this;
+    public Type getType() {
+        return type;
     }
 
-    public boolean isVisited() {
-        return visited;
+    public void setType(Type type) {
+        this.type = type;
     }
 
-    public GridCell setVisited(boolean visited) {
-        this.visited = visited;
-        return this;
+    public boolean isOutside() {
+        return type == Type.OUTSIDE;
     }
 
-    public boolean isNotAWall() {
-        return !wall;
+    public boolean isInside() {
+        return type == Type.INSIDE;
     }
 
-    public GridCell setWall(boolean wall) {
-        this.wall = wall;
-        return this;
+    public boolean isWall() {
+        return type == Type.WALL;
     }
 
-    @Override
-    public String toString() {
-        return "GridCell{" +
-                "gridPoint=" + gridPoint +
-                '}';
-    }
 }

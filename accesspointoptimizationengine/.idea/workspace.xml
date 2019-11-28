@@ -2,12 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="134fce2a-bab1-4fc1-88be-380e3b2feb07" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/data/MapWriter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/data/PlanCellTypeMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/Heatmap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/data/StepDataMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/engineering/PathLossModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/GridCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/GridCell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Gridster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Gridster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/plan/Wall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/OptimizationEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/OptimizationEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/engineering/PathLossModel$PathLossModelCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/engineering/PathLossModel$PathLossModelCache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/engineering/PathLossModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/engineering/PathLossModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Grid.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Grid.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/GridCell.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/GridCell.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Gridster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/grid/Gridster.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/plan/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/model/plan/Wall.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +55,7 @@
   <component name="ProjectId" id="1U0OVZLUjBQddyUgsd2hiczbsTw" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -169,20 +183,6 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="attractiveGridPoint" />

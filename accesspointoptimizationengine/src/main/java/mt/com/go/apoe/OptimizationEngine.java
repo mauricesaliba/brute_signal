@@ -1,13 +1,14 @@
 package mt.com.go.apoe;
 
+import mt.com.go.apoe.data.PlanCellTypeMap;
+import mt.com.go.apoe.data.StepDataMap;
 import mt.com.go.apoe.engineering.PathLossModel;
-import mt.com.go.apoe.model.*;
-import mt.com.go.apoe.model.grid.GridPoint;
+import mt.com.go.apoe.model.AccessPoint;
 import mt.com.go.apoe.model.grid.Grid;
+import mt.com.go.apoe.model.grid.GridPoint;
 import mt.com.go.apoe.model.grid.Gridster;
 import mt.com.go.apoe.model.plan.GridWall;
 import mt.com.go.apoe.model.plan.UiWall;
-import mt.com.go.apoe.model.plan.Wall;
 import mt.com.go.apoe.model.recommendation.Recommendation;
 
 import java.util.ArrayList;
@@ -16,26 +17,32 @@ import java.util.Random;
 
 public class OptimizationEngine {
 
+    private static final boolean DEBUG = true;
+
     private static final int MAX_STEPS = 150;
     private static final int MAX_ACCESS_POINTS = 5;
     private static final float AVERAGE_DECIBEL_THRESHOLD = -60;
-    private static final int GRID_CELL_SIZE = 20; //This is in cm
+    private static final int GRID_CELL_SIZE = 20; //This is in cm & is set to 20 so it matches the wall size
     private static final float UI_SCALE_FACTOR = 1f;
 
-    public Recommendation getOptimalSolution(Wall[] uiWalls) {
-        Wall[] gridWalls = convertToGridWalls(uiWalls);
+    private GridWall[] gridWalls;
+    private Grid planLayoutGrid;
 
-        PathLossModel pathLossModel = new PathLossModel(GRID_CELL_SIZE);
-        PathLossModel.PathLossModelCache pathLossHeatMap = pathLossModel.generateCache(gridWalls);
-        Grid usabilityGrid = new Gridster(GRID_CELL_SIZE).generateUsabilityGrid(gridWalls);
+    private PathLossModel pathLossModel;
 
-        for(int i = 0; i < pathLossHeatMap.cache.length; i++) {
-            for (int j = 0; j < pathLossHeatMap.cache[0].length; j++) {
-                System.out.print(pathLossHeatMap.cache[i][j] + ", ");
-            }
-            System.out.println();
+    public OptimizationEngine(UiWall[] uiWalls) {
+        gridWalls = convertToGridWalls(uiWalls);
+        planLayoutGrid = new Gridster().generateUsabilityGrid(gridWalls);
+
+        if (DEBUG) {
+            new PlanCellTypeMap().generateHeatMapImage(planLayoutGrid);
         }
 
+        pathLossModel = new PathLossModel(planLayoutGrid);
+    }
+
+
+    public Recommendation optimize() {
         int accessPointCount = 0;
 
         //Move inside when we fix the Optimal solution
@@ -45,22 +52,24 @@ public class OptimizationEngine {
         do {
             accessPointCount++;
 
-            accessPoints = randomlyPlaceAccessPoints(usabilityGrid, accessPointCount);
+            accessPoints = randomlyPlaceAccessPoints(planLayoutGrid, accessPointCount);
             int step = 0;
 
             while(step < MAX_STEPS) {
-                signalStrengthHeatMap = pathLossModel.generateHeatMap(pathLossHeatMap, accessPoints, false);
+                signalStrengthHeatMap = pathLossModel.generateHeatMap(accessPoints, false);
 
-                GridPoint attractiveGridPoint = getMostAttractiveGridPoint(usabilityGrid, signalStrengthHeatMap);
+                GridPoint attractiveGridPoint = getMostAttractiveGridPoint(planLayoutGrid, signalStrengthHeatMap);
                 AccessPoint accessPoint = getBestAccessPointToMove(signalStrengthHeatMap, attractiveGridPoint, accessPoints);
 
                 accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, attractiveGridPoint);
 
                 System.out.println(step);
 
-                Heatmap.generateHeatMapImage(signalStrengthHeatMap, step, accessPointCount, attractiveGridPoint, usabilityGrid);
+                if(DEBUG) {
+                    new StepDataMap().generateHeatMapImage(signalStrengthHeatMap, step, accessPointCount, attractiveGridPoint, planLayoutGrid);
+                }
 
-                if(getAreaCoverage(usabilityGrid, signalStrengthHeatMap) >= AVERAGE_DECIBEL_THRESHOLD) {
+                if(getAreaCoverage(planLayoutGrid, signalStrengthHeatMap) >= AVERAGE_DECIBEL_THRESHOLD) {
                     System.out.println("Found a solution!!!");
                     return new Recommendation(accessPoints, signalStrengthHeatMap);
                 }
@@ -72,31 +81,25 @@ public class OptimizationEngine {
         return new Recommendation(accessPoints, signalStrengthHeatMap);
     }
 
-    private Wall[] convertToGridWalls(Wall[] walls) {
+    private GridWall[] convertToGridWalls(UiWall[] walls) {
         if (walls == null) {
-            return new Wall[0];
+            return new GridWall[0];
         }
 
-        Wall[] gridWalls = new GridWall[walls.length];
+        GridWall[] gridWalls = new GridWall[walls.length];
 
         for (int i = 0; i < walls.length; i++) {
-            Wall wall = walls[i];
+            UiWall uiWall = walls[i];
 
-            if(wall instanceof UiWall) {
-                UiWall uiWall = (UiWall) wall;
+            GridPoint startGridPoint = new GridPoint(
+                    (int) ((uiWall.getStart().getX() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE),
+                    (int) ((uiWall.getStart().getY() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE));
 
-                GridPoint startGridPoint = new GridPoint(
-                        (int) ((uiWall.getStart().getX() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE),
-                        (int) ((uiWall.getStart().getY() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE));
+            GridPoint endGridPoint = new GridPoint(
+                    (int) ((uiWall.getEnd().getX() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE),
+                    (int) ((uiWall.getEnd().getY() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE));
 
-                GridPoint endGridPoint = new GridPoint(
-                        (int) ((uiWall.getEnd().getX() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE),
-                        (int) ((uiWall.getEnd().getY() * 100 * UI_SCALE_FACTOR) / GRID_CELL_SIZE));
-
-                gridWalls[i] = new GridWall(startGridPoint, endGridPoint, uiWall.getMaterial(), uiWall.getThickness());
-            } else {
-                gridWalls[i] = wall;
-            }
+            gridWalls[i] = new GridWall(startGridPoint, endGridPoint, uiWall.getMaterial(), uiWall.getThickness());
         }
 
         return gridWalls;
@@ -111,7 +114,7 @@ public class OptimizationEngine {
                 int row = random.nextInt(usabilityGrid.getRows());
                 int column = random.nextInt(usabilityGrid.getColumns());
 
-                if (usabilityGrid.getGridCells()[row][column].isUsable()){
+                if (usabilityGrid.getGridCells()[row][column].isInside()){
                     accessPoints.add(new AccessPoint(new GridPoint(row, column)));
                     break;
                 }
@@ -127,7 +130,7 @@ public class OptimizationEngine {
 
         for (int i = 0; i < signalStrengthHeatMap.length; i++) {
             for(int j = 0; j < signalStrengthHeatMap[0].length; j++) {
-                if (usabilityGrid.getGridCells()[i][j].isUsable() && signalStrengthHeatMap[i][j] < lowestDecibel) {
+                if (usabilityGrid.getGridCells()[i][j].isInside() && signalStrengthHeatMap[i][j] < lowestDecibel) {
                     gridPoint.setRow(i).setColumn(j);
                     lowestDecibel = signalStrengthHeatMap[i][j];
                 }
@@ -143,7 +146,7 @@ public class OptimizationEngine {
 
         for(int i = 0; i < signalStrengthHeatMap.length; i++) {
             for(int j = 0; j < signalStrengthHeatMap[0].length; j++){
-                if(usabilityGrid.getGridCells()[i][j].isUsable()) {
+                if(usabilityGrid.getGridCells()[i][j].isInside()) {
                     sum += signalStrengthHeatMap[i][j];
                     usableGridCells++;
                 }
