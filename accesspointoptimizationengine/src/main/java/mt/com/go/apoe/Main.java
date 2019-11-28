@@ -17,19 +17,20 @@ public class Main {
 
     private static Wall[] getTestingUIWalls() {
 
-        Wall wall1 = new UiWall(new Point(5, 5), new Point(15, 5), Material.CONCRETE, 50);
-        Wall wall2 = new UiWall(new Point(15, 5), new Point(15, 15), Material.CONCRETE, 50);
-        Wall wall3 = new UiWall(new Point(15, 15), new Point(5, 15), Material.CONCRETE, 50);
-        Wall wall4 = new UiWall(new Point(5, 15), new Point(5, 5), Material.CONCRETE, 50);
-        Wall wall5 = new UiWall(new Point(8, 10), new Point(8, 5), Material.CONCRETE, 50);
+        Wall wall1 = new UiWall(new Point(5, 5), new Point(15, 5), Material.CONCRETE, 20);
+        Wall wall2 = new UiWall(new Point(15, 5), new Point(15, 15), Material.CONCRETE, 20);
+        Wall wall3 = new UiWall(new Point(15, 15), new Point(5, 15), Material.CONCRETE, 20);
+        Wall wall4 = new UiWall(new Point(5, 15), new Point(5, 5), Material.CONCRETE, 20);
+        Wall wall5 = new UiWall(new Point(8, 10), new Point(8, 5), Material.CONCRETE, 20);
+        Wall wall6 = new UiWall(new Point(5, 10), new Point(8, 10), Material.CONCRETE, 20);
 
-
-        Wall walls[] = new UiWall[5];
+        Wall walls[] = new UiWall[6];
         walls[0] = wall1;
         walls[1] = wall2;
         walls[2] = wall3;
         walls[3] = wall4;
         walls[4] = wall5;
+        walls[5] = wall6;
 
         return walls;
     }

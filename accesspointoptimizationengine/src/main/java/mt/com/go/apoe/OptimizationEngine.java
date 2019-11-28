@@ -8,7 +8,6 @@ import mt.com.go.apoe.model.grid.Gridster;
 import mt.com.go.apoe.model.plan.GridWall;
 import mt.com.go.apoe.model.plan.UiWall;
 import mt.com.go.apoe.model.plan.Wall;
-import mt.com.go.apoe.model.recommendation.EmptyRecommendation;
 import mt.com.go.apoe.model.recommendation.Recommendation;
 
 import java.util.ArrayList;
@@ -52,8 +51,7 @@ public class OptimizationEngine {
             while(step < MAX_STEPS) {
                 signalStrengthHeatMap = pathLossModel.generateHeatMap(pathLossHeatMap, accessPoints, false);
 
-                //GridPoint gridPoint = getMostAttractiveGridPoint(usabilityGrid, signalStrengthHeatMap);
-                GridPoint attractiveGridPoint = new GridPoint(75,25);
+                GridPoint attractiveGridPoint = getMostAttractiveGridPoint(usabilityGrid, signalStrengthHeatMap);
                 AccessPoint accessPoint = getBestAccessPointToMove(signalStrengthHeatMap, attractiveGridPoint, accessPoints);
 
                 accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, attractiveGridPoint);

@@ -45,34 +45,30 @@ public class PathLossModel {
         }
     }
 
-    public double findLoss(PathLossModel.PathLossModelCache cache, int x1, int y1, final int x2, final int y2)
-    {
+    public double findLoss(PathLossModel.PathLossModelCache cache, int x1, int y1, final int x2, final int y2) {
         final int dx = Math.abs(x2 - x1);
         final int dy = Math.abs(y2 - y1);
 
         final int sx = x1 < x2 ? 1 : -1;
         final int sy = y1 < y2 ? 1 : -1;
 
-        int err = dx-dy;
+        int err = dx - dy;
         int e2;
         double totalLoss = 0;
 
-        while (true)
-        {
+        while (true) {
             totalLoss += cache.cache[x1][y1];
 
             if (x1 == x2 && y1 == y2)
                 break;
 
             e2 = 2 * err;
-            if (e2 > -dy)
-            {
+            if (e2 > -dy) {
                 err = err - dy;
                 x1 = x1 + sx;
             }
 
-            if (e2 < dx)
-            {
+            if (e2 < dx) {
                 err = err + dx;
                 y1 = y1 + sy;
             }
@@ -80,14 +76,14 @@ public class PathLossModel {
         return totalLoss;
     }
 
-    double CalculateRxPower (double Distance, double WallLoss, double TransmitPower, boolean Is24GHz, double AntennaGain){
+    double CalculateRxPower(double Distance, double WallLoss, double TransmitPower, boolean Is24GHz, double AntennaGain) {
 
         double distance = Distance;
         double antennaGainAP = AntennaGain;
         double txPower = TransmitPower;
         double antennaGainDevice = 0;
         double wallLoss = WallLoss;
-        double frequency = (Is24GHz)? 2400 : 5000;
+        double frequency = (Is24GHz) ? 2400 : 5000;
         double gains = txPower + antennaGainDevice + antennaGainAP;
         double powerLossCoefficient = 28;
 
@@ -117,6 +113,38 @@ public class PathLossModel {
         return cache;
     }
 
+    public double[][] generateHeatMap(PathLossModel.PathLossModelCache cache, AccessPoint APs[], boolean accumulativeHeatMap) {
+        double[][] heatMap = new double[cache.dim_x][cache.dim_y];
+        if (!accumulativeHeatMap) {
+            Arrays.stream(heatMap).forEach(a -> Arrays.fill(a, Double.NEGATIVE_INFINITY));
+        }
+        //Array.fill(heatMap, Double.NEGATIVE_INFINITY);
+
+        for (AccessPoint AP : APs) {
+            for (int i = 0; i < cache.dim_x; i++) {
+                for (int j = 0; j < cache.dim_y; j++) {
+                    if (i == AP.getCurrentGridPoint().getColumn() && j == AP.getCurrentGridPoint().getRow()) {
+                        if (accumulativeHeatMap) {
+                            heatMap[i][j] += AP.getTransmitPower();
+                        } else {
+                            heatMap[i][j] = Math.max(AP.getTransmitPower(), heatMap[i][j]);
+                        }
+                        continue;
+                    }
+                    double distance = Math.sqrt((Math.pow((AP.getCurrentGridPoint().getColumn() - i), 2)) + (Math.pow(AP.getCurrentGridPoint().getRow() - j, 2)));
+                    double totalLoss = findLoss(cache, (int) (AP.getCurrentGridPoint().getColumn()), (int) (AP.getCurrentGridPoint().getRow()), (i), (j));
+                    double recievedPower = Math.round(CalculateRxPower(distance, totalLoss, AP.getTransmitPower(), true, AP.getAntennaGain()));
+                    if (accumulativeHeatMap) {
+                        heatMap[i][j] += recievedPower;
+                    } else {
+                        heatMap[i][j] = Math.max(recievedPower, heatMap[i][j]);
+                    }
+                }
+            }
+        }
+        return heatMap;
+    }
+
     public class PathLossModelCache {
 
         public int dim_x;
@@ -129,40 +157,6 @@ public class PathLossModel {
 
             cache = new double[dim_x][dim_y];
         }
-    }
-
-    public double[][] generateHeatMap(PathLossModel.PathLossModelCache cache, AccessPoint APs[], boolean accumulativeHeatMap){
-        double[][] heatMap = new double[cache.dim_x][cache.dim_y];
-        if(!accumulativeHeatMap) {
-            Arrays.stream(heatMap).forEach(a -> Arrays.fill(a, Double.NEGATIVE_INFINITY));
-        }
-        //Array.fill(heatMap, Double.NEGATIVE_INFINITY);
-
-        for (AccessPoint AP : APs) {
-            for (int i = 0; i < cache.dim_x; i++) {
-                for (int j = 0; j < cache.dim_y; j++) {
-                    if (i == AP.getCurrentGridPoint().getColumn() && j == AP.getCurrentGridPoint().getRow()){
-                        if (accumulativeHeatMap) {
-                            heatMap[i][j] += AP.getTransmitPower();
-                        }
-                        else {
-                            heatMap[i][j] = Math.max(AP.getTransmitPower(), heatMap[i][j]);
-                        }
-                        continue;
-                    }
-                    double distance = Math.sqrt((Math.pow((AP.getCurrentGridPoint().getColumn()-i), 2))+(Math.pow(AP.getCurrentGridPoint().getRow()-j, 2)));
-                    double totalLoss = findLoss(cache, (int) (AP.getCurrentGridPoint().getColumn()), (int) (AP.getCurrentGridPoint().getRow()), (i), (j));
-                    double recievedPower = Math.round(CalculateRxPower(distance, totalLoss, AP.getTransmitPower(), true, AP.getAntennaGain()));
-                    if (accumulativeHeatMap) {
-                        heatMap[i][j] += recievedPower;
-                    }
-                    else {
-                        heatMap[i][j] = Math.max(recievedPower, heatMap[i][j]);
-                    }
-                }
-            }
-        }
-        return heatMap;
     }
 
 }

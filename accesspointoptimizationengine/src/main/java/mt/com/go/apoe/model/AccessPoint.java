@@ -5,11 +5,6 @@ import mt.com.go.apoe.model.grid.GridPoint;
 
 public class AccessPoint implements Movement {
 
-    private static final float TOP_LEFT_RADIANS = (float) ((5 * Math.PI) / 4);
-    private static final float TOP_RIGHT_RADIANS = (float) ((7 * Math.PI) / 4);
-    private static final float BOTTOM_RIGHT_RADIANS = (float) (Math.PI / 4);
-    private static final float BOTTOM_LEFT_RADIANS = (float) ((3 * Math.PI) / 4);
-
     private GridPoint currentGridPoint;
     private float antennaGain = 3;
     private float transmitPower = 0.4f;
@@ -37,7 +32,7 @@ public class AccessPoint implements Movement {
         float absDeltaRow = Math.abs(deltaRow);
         float absDeltaColumn = Math.abs(deltaColumn);
 
-        if( absDeltaColumn >= absDeltaRow && deltaColumn >= 0 ) {
+        if(absDeltaColumn >= absDeltaRow && deltaColumn >= 0 ) {
             moveLeft(this.currentGridPoint);
         } else if(absDeltaColumn >= absDeltaRow && deltaColumn <= 0) {
             moveRight(columnCount, this.currentGridPoint);
