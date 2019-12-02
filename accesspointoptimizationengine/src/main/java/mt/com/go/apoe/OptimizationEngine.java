@@ -10,6 +10,8 @@ import mt.com.go.apoe.model.grid.Gridster;
 import mt.com.go.apoe.model.plan.GridWall;
 import mt.com.go.apoe.model.plan.UiWall;
 import mt.com.go.apoe.model.recommendation.Recommendation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +19,12 @@ import java.util.Random;
 
 public class OptimizationEngine {
 
+    private static final Logger logger = LoggerFactory.getLogger(OptimizationEngine.class);
+
     private static final boolean DEBUG = true;
 
-    private static final int MAX_STEPS = 150;
-    private static final int MAX_ACCESS_POINTS = 5;
+    private static final int MAX_STEPS = 200;
+    private static final int MAX_ACCESS_POINTS = 4;
     private static final float AVERAGE_DECIBEL_THRESHOLD = -60;
     private static final int GRID_CELL_SIZE = 20; //This is in cm & is set to 20 so it matches the wall size
     private static final float UI_SCALE_FACTOR = 1f;
@@ -63,14 +67,16 @@ public class OptimizationEngine {
 
                 accessPoint.moveTowards(signalStrengthHeatMap.length, signalStrengthHeatMap[0].length, attractiveGridPoint);
 
-                System.out.println(step);
+                logger.debug("Step: " + step);
 
                 if(DEBUG) {
                     new StepDataMap().generateHeatMapImage(signalStrengthHeatMap, step, accessPointCount, attractiveGridPoint, planLayoutGrid);
                 }
 
+                logger.debug("Area coverage: " + getAreaCoverage(planLayoutGrid, signalStrengthHeatMap));
+
                 if(getAreaCoverage(planLayoutGrid, signalStrengthHeatMap) >= AVERAGE_DECIBEL_THRESHOLD) {
-                    System.out.println("Found a solution!!!");
+                    logger.info("Found a solution!!!");
                     return new Recommendation(accessPoints, signalStrengthHeatMap);
                 }
 

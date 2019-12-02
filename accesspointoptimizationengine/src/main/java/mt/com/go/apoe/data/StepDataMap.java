@@ -47,11 +47,9 @@ public class StepDataMap extends MapWriter {
             heatPercentage = 0f;
         }
 
-        float sat = 255;
-        float lum = 255;
         float hue = 2*150 * (1f - heatPercentage)/2;
 
-        return Color.getHSBColor(hue/255f,sat/255f,lum/255f);
+        return Color.getHSBColor(hue/255f,1,1);
     }
 
 }
