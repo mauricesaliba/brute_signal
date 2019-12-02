@@ -1,5 +1,6 @@
 package mt.com.go.apoe.model;
 
+import mt.com.go.apoe.model.grid.Grid;
 import mt.com.go.apoe.model.grid.GridCell;
 import mt.com.go.apoe.model.grid.Movement;
 import mt.com.go.apoe.model.grid.GridPoint;
@@ -48,7 +49,20 @@ public class AccessPoint implements Movement {
         }
     }
 
-    public void jump(GridCell gridCell, float maxForce) {
-        currentGridPoint = gridCell.getGridPosition();
+    public void jump(Grid planLayoutGrid, float maxForce, GridCell gridCell) {
+        float diffRow = gridCell.getGridPosition().getRow() - currentGridPoint.getRow() ;
+        float diffCol = gridCell.getGridPosition().getColumn() - currentGridPoint.getColumn();
+
+        int directionRow = (int) (diffRow / Math.abs(diffRow));
+        int directionCol = (int) (diffCol / Math.abs(diffCol));
+
+        float randomForce = (float) (Math.random() * maxForce);
+
+        int row = Math.round(currentGridPoint.getRow() + directionRow * randomForce);
+        int col = Math.round(currentGridPoint.getColumn() + directionCol * randomForce);
+
+        if (planLayoutGrid.isNotOutOfBounds(row, col) && planLayoutGrid.getGridCells()[row][col].isInside()) {
+            currentGridPoint = planLayoutGrid.getGridCells()[row][col].getGridPosition();
+        }
     }
 }

@@ -25,9 +25,9 @@ public class OptimizationEngine {
 
     private static final boolean DEBUG = true;
 
-    private static final int MAX_STEPS = 200;
-    private static final float MAX_FORCE = 3;
-    private static final int MAX_ACCESS_POINTS = 4;
+    private static final int MAX_STEPS = 50;
+    private static final float MAX_FORCE = 10;
+    private static final int MAX_ACCESS_POINTS = 5;
     private static final float MIN_DECIBEL_THRESHOLD = -70;
     private static final int GRID_CELL_SIZE = 20; //This is in cm & is set to 20 so it matches the wall size
     private static final float UI_SCALE_FACTOR = 1f;
@@ -56,6 +56,9 @@ public class OptimizationEngine {
         AccessPoint[] bestAccessPoints = null;
         float highestAreaCoverage = 0;
 
+        int bestStep = 0;
+        int bestAccessPointCount = 0;
+
         do {
             accessPointCount++;
 
@@ -67,7 +70,7 @@ public class OptimizationEngine {
                 for(AccessPoint accessPoint : accessPoints) {
                     GridCell gridCell = findBestNeighbouringCell(planLayoutGrid, accessPoints, accessPoint);
 
-                    accessPoint.jump(gridCell, MAX_FORCE);
+                    accessPoint.jump(planLayoutGrid, MAX_FORCE, gridCell);
                 }
 
                 double[][] signalStrengthHeatMap = pathLossModel.generateHeatMap(accessPoints, false);
@@ -75,7 +78,6 @@ public class OptimizationEngine {
                 if(DEBUG) {
                     new StepDataMap().generateHeatMapImage(signalStrengthHeatMap, step, accessPointCount, planLayoutGrid);
                 }
-
 
                 float areaCoverage = getAreaCoverage(planLayoutGrid, signalStrengthHeatMap);
 
@@ -85,12 +87,16 @@ public class OptimizationEngine {
                     bestSignalStrengthHeatMap = signalStrengthHeatMap;
                     bestAccessPoints = accessPoints;
                     highestAreaCoverage = areaCoverage;
+
+                    bestAccessPointCount = accessPointCount;
+                    bestStep = step;
                 }
 
                 step++;
             }
         } while (accessPointCount < MAX_ACCESS_POINTS);
 
+        logger.debug("Best step: " + bestStep + " | Best Access Point Count: " + bestAccessPointCount);
         return new Recommendation(bestAccessPoints, bestSignalStrengthHeatMap);
     }
 
@@ -117,7 +123,6 @@ public class OptimizationEngine {
 
         return bestGridCell;
     }
-
 
     private GridWall[] convertToGridWalls(UiWall[] walls) {
         if (walls == null) {
@@ -162,22 +167,6 @@ public class OptimizationEngine {
         return accessPoints.toArray(new AccessPoint[0]);
     }
 
-    private GridPoint getMostAttractiveGridPoint(Grid usabilityGrid, double[][] signalStrengthHeatMap) {
-        double lowestDecibel = Double.MAX_VALUE;
-        GridPoint gridPoint = new GridPoint(0,0);
-
-        for (int i = 0; i < signalStrengthHeatMap.length; i++) {
-            for(int j = 0; j < signalStrengthHeatMap[0].length; j++) {
-                if (usabilityGrid.getGridCells()[i][j].isInside() && signalStrengthHeatMap[i][j] < lowestDecibel) {
-                    gridPoint.setRow(i).setColumn(j);
-                    lowestDecibel = signalStrengthHeatMap[i][j];
-                }
-            }
-        }
-
-        return gridPoint;
-    }
-
     private float getAreaCoverage(Grid usabilityGrid, double[][] signalStrengthHeatMap) {
         int count = 0;
         int usableGridCells = 0;
@@ -194,37 +183,6 @@ public class OptimizationEngine {
         }
 
         return count / (float) usableGridCells;
-    }
-
-    private AccessPoint getBestAccessPointToMove(double[][] signalStrengthMap, GridPoint gridPoint, AccessPoint[] accessPoints) {
-        if(accessPoints.length == 0) {
-            return null;
-        }
-
-        float lowestAveragedSum = Float.MAX_VALUE;
-        AccessPoint bestAccessPoint = accessPoints[0];
-
-        for(AccessPoint accessPoint : accessPoints) {
-            List<GridPoint> gridPoints = Grid.findLine(
-                    accessPoint.getCurrentGridPoint().getColumn(),
-                    accessPoint.getCurrentGridPoint().getRow(),
-                    gridPoint.getColumn(),
-                    gridPoint.getRow());
-
-            float currentSum = 0;
-
-            for (GridPoint gp : gridPoints) {
-                currentSum += Math.abs(signalStrengthMap[gp.getRow()][gp.getColumn()]);
-            }
-
-            float currentAveragedSum = currentSum / gridPoints.size();
-            if(currentAveragedSum < lowestAveragedSum) {
-                bestAccessPoint = accessPoint;
-                lowestAveragedSum = currentAveragedSum;
-            }
-        }
-
-        return bestAccessPoint;
     }
 
 }
