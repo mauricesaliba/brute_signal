@@ -1,5 +1,6 @@
 package mt.com.go.apoe.model;
 
+import mt.com.go.apoe.model.grid.GridCell;
 import mt.com.go.apoe.model.grid.Movement;
 import mt.com.go.apoe.model.grid.GridPoint;
 
@@ -25,6 +26,10 @@ public class AccessPoint implements Movement {
         return currentGridPoint;
     }
 
+    public void setCurrentGridPoint(GridPoint gridPoint) {
+        this.currentGridPoint = gridPoint;
+    }
+
     public void moveTowards(int rowCount, int columnCount, GridPoint attractiveGridPoint) {
         float deltaRow = this.currentGridPoint.getRow() - attractiveGridPoint.getColumn();
         float deltaColumn = this.currentGridPoint.getColumn() - attractiveGridPoint.getRow();
@@ -43,4 +48,7 @@ public class AccessPoint implements Movement {
         }
     }
 
+    public void jump(GridCell gridCell, float maxForce) {
+        currentGridPoint = gridCell.getGridPosition();
+    }
 }

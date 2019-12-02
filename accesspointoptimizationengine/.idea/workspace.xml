@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="134fce2a-bab1-4fc1-88be-380e3b2feb07" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/data/StepDataMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/data/StepDataMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/grid/Grid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/OptimizationEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mt/com/go/apoe/OptimizationEngine.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -169,6 +170,25 @@
     </option>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/model/AccessPoint.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java</url>
+          <line>193</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/mt/com/go/apoe/OptimizationEngine.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="attractiveGridPoint" />

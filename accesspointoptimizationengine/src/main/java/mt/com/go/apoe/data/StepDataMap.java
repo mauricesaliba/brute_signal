@@ -12,6 +12,26 @@ public class StepDataMap extends MapWriter {
     private static final float MIN_HEAT = -80f;
     private static final String path = "results/test_data";
 
+    public void generateHeatMapImage(double[][] signalStrengthHeatMap, int step, int accessPointCount, Grid usabilityGrid) {
+        BufferedImage debugImage = new BufferedImage(
+                signalStrengthHeatMap[0].length,
+                signalStrengthHeatMap.length,
+                BufferedImage.TYPE_INT_RGB
+        );
+        for (int row = 0; row < signalStrengthHeatMap.length; row++) {
+            for (int col = 0; col < signalStrengthHeatMap[0].length; col++) {
+                Color color = generateColor(signalStrengthHeatMap[row][col]);
+                debugImage.setRGB(col, row, color.getRGB());
+                if(usabilityGrid.getGridCells()[row][col].isWall()){
+                    Color wallColor = Color.WHITE;
+                    debugImage.setRGB(col,row, wallColor.getRGB());
+                }
+            }
+        }
+
+        super.write(debugImage, "/test_data_" + accessPointCount, "HeatMapResult" + step);
+    }
+
     public void generateHeatMapImage(double[][] signalStrengthHeatMap, int step, int accessPointCount, GridPoint attractionPoint, Grid usabilityGrid) {
         BufferedImage debugImage = new BufferedImage(
                 signalStrengthHeatMap[0].length,

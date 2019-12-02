@@ -62,6 +62,10 @@ public class Grid {
                 .toArray(GridCell[]::new);
     }
 
+    public GridCell getNeighbouringInsideCell(int row, int column) {
+        return Arrays.stream(getNeighbouringCells(row, column)).filter(cell -> cell.isInside()).findAny().orElse(null);
+    }
+
     public static List<GridPoint> findLine(int x0, int y0, int x1, int y1) {
         List<GridPoint> line = new ArrayList<>();
 
