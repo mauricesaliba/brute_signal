@@ -1,5 +1,6 @@
 package mt.com.go.apoe;
 
+import lombok.extern.slf4j.Slf4j;
 import mt.com.go.apoe.data.PlanCellTypeMap;
 import mt.com.go.apoe.data.StepDataMap;
 import mt.com.go.apoe.engineering.PathLossModel;
@@ -10,7 +11,6 @@ import mt.com.go.apoe.model.grid.GridPoint;
 import mt.com.go.apoe.model.grid.Gridster;
 import mt.com.go.apoe.model.plan.GridWall;
 import mt.com.go.apoe.model.plan.UiWall;
-import mt.com.go.apoe.model.recommendation.EmptyRecommendation;
 import mt.com.go.apoe.model.recommendation.Recommendation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,18 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Slf4j
 public class OptimizationEngine {
 
-    private static final Logger logger = LoggerFactory.getLogger(OptimizationEngine.class);
-
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     private static final int MAX_STEPS = 50;
     private static final float MAX_FORCE = 10;
     private static final int MAX_ACCESS_POINTS = 5;
     private static final float MIN_DECIBEL_THRESHOLD = -70;
     private static final int GRID_CELL_SIZE = 20; //This is in cm & is set to 20 so it matches the wall size
-    private static final float UI_SCALE_FACTOR = 1f;
+    private static final float UI_SCALE_FACTOR = 0.01f;
 
     private GridWall[] gridWalls;
     private Grid planLayoutGrid;
@@ -81,7 +80,7 @@ public class OptimizationEngine {
 
                 float areaCoverage = getAreaCoverage(planLayoutGrid, signalStrengthHeatMap);
 
-                logger.debug("Step: " + step + " | Area Coverage: " + areaCoverage);
+                log.info("Step: " + step + " | Area Coverage: " + areaCoverage);
 
                 if(areaCoverage > highestAreaCoverage) {
                     bestSignalStrengthHeatMap = signalStrengthHeatMap;
@@ -96,8 +95,12 @@ public class OptimizationEngine {
             }
         } while (accessPointCount < MAX_ACCESS_POINTS);
 
-        logger.debug("Best step: " + bestStep + " | Best Access Point Count: " + bestAccessPointCount);
+        log.info("Best step: " + bestStep + " | Best Access Point Count: " + bestAccessPointCount);
         return new Recommendation(bestAccessPoints, bestSignalStrengthHeatMap);
+    }
+
+    private Recommendation rescale(Recommendation recommendation) {
+        recommendation.getAccessPoints()
     }
 
     private GridCell findBestNeighbouringCell(Grid planLayoutGrid, AccessPoint[] accessPoints, AccessPoint accessPoint) {
